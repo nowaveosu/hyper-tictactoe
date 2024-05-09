@@ -13,6 +13,10 @@ export default function Home() {
     socket.emit("message",message, roomName)
   }
   
+  const handleJoinRoom= () => {
+    socket.emit("joinRoom", roomName)
+  }
+  
   useEffect(() =>{
     const socket = io('http://localhost:3000')
     setSocket(socket)
@@ -45,7 +49,7 @@ export default function Home() {
         <input onChange={(e) => {
           setRoomName(e.target.value)
         }}type="text" name="room" className="flex-1 bg-black border rounded px-2 py-1"/>
-        <button className="w-40">Join Room</button>
+        <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
       </div>
 
     </div>
