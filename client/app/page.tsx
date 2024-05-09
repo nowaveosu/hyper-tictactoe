@@ -15,7 +15,7 @@ export default function Home() {
   }
   
   useEffect(() =>{
-    const socket = io('http://localhost:3001')
+    const socket = io('http://localhost:3000')
     setSocket(socket)
   },[])
   return (
@@ -35,7 +35,9 @@ export default function Home() {
       </div>
       
       <div className="flex gap-2 align-center justify-center">
-        <input type="text" name="room" className="flex-1 bg-black border rounded px-2 py-1"/>
+        <input onChange={(e) => {
+          setRoomName(e.target.value)
+        }}type="text" name="room" className="flex-1 bg-black border rounded px-2 py-1"/>
         <button className="w-40">Join Room</button>
       </div>
 
