@@ -1,12 +1,11 @@
 "use client"
 
-import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import { io } from "socket.io-client";
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
-  const [inbox, setInbox] = useState<any>(["hello", "nice"])
+  const [inbox, setInbox] = useState<string[]>(["hello", "nice"])
   const [message, setMessage] = useState("")
   const [roomName, setRoomName] = useState("")
   
@@ -18,12 +17,20 @@ export default function Home() {
     const socket = io('http://localhost:3000')
     setSocket(socket)
   },[])
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('message',(message: string) => {
+        setInbox((prevInbox) => [...prevInbox, message]) 
+      })
+    }
+  }, [socket]) 
   return (
     <div><div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
       
       <div className="flex flex-col gap-2 border rounded-lg p-10">
         {inbox.map((message: string, index: number) => (
-          <div key={index} className="border rounded px-4 py-2">Hello</div>
+          <div key={index} className="border rounded px-4 py-2">{message}</div>
         ))}
       </div>
       
