@@ -24,5 +24,3 @@ io.on("connection",(socket) => {
         socket.join(roomName)
     })
 })
-
-console.log("hello world")
