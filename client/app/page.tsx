@@ -17,6 +17,10 @@ export default function Home() {
   const handleJoinRoom= () => {
     socket.emit("joinRoom", roomName)
   }
+
+  const handleMakeMove = (index: number) => {
+    socket.emit("makeMove", index, roomName);
+  }
   
   useEffect(() =>{
     const socket = io('http://localhost:3000')
@@ -38,7 +42,7 @@ export default function Home() {
           {gameState && Array.from({ length: 3 }).map((_, rowIndex) => (
             <div key = {rowIndex} className='flex justify-center w-full'>
               {gameState.board.slice(rowIndex * 3, (rowIndex + 1) * 3).map((cell: string, cellIndex: number) => (
-                <div key={rowIndex * 3 + cellIndex} className = "border rounded px-4 py-2 m-1 w-8 h-8 flex items-center justify-center" >
+                <div key={rowIndex * 3 + cellIndex} className = "border rounded px-4 py-2 m-1 w-8 h-8 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 3 + cellIndex)} >
                   {cell}
                 </div>
               ))}
