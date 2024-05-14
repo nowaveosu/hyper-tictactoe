@@ -33,8 +33,30 @@ io.on("connection",(socket) => {
         }
         
     })
+    
+    socket.on("makeMove", (index, roomName) => {
+        let room = rooms[roomName];
+        if (room && room.players[room.turn % 2] === socket.id && room.board[index] === null) {
+            room.board[index] = room.turn % 2 === 0 ? "X" : "O";
+            room.turn++;
+            io.to(roomName).emit("ga")
+        }
+    })
+
     socket.on("disconnect", () => {
-        console.log("user disconnected.")
+        console.log("user disconnected.");
+        for(let roomName in rooms) {
+            let room = rooms[roomName];
+            let playerIndex = room.players.indexOf(socket.id);
+            if(playerIndex !== -1) {
+                room.players.splice(playerIndex, 1);
+                if(room.players.length === 0) {
+                    delete rooms[roomName];
+                } else {
+                    io.to(roomName).emit("gmaeState", room);
+                }
+            }
+        }
     })
 
 })
