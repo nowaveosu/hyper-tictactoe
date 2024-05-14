@@ -32,6 +32,10 @@ export default function Home() {
       socket.on('message',(message: string) => {
         setInbox((prevInbox) => [...prevInbox, message]) 
       })
+
+      socket.on('gameState', (gameState: any) => {
+        setGameState(gameState);
+      })
     }
   }, [socket]) 
 
