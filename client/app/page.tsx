@@ -43,10 +43,10 @@ export default function Home() {
     <div>
       <div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
       <div className='flex flex-wrap justify-center'>
-          {gameState && Array.from({ length: 3 }).map((_, rowIndex) => (
+          {gameState && Array.from({ length: 12 }).map((_, rowIndex) => ( // Change this line
             <div key = {rowIndex} className='flex justify-center w-full'>
-              {gameState.board.slice(rowIndex * 3, (rowIndex + 1) * 3).map((cell: string, cellIndex: number) => (
-                <div key={rowIndex * 3 + cellIndex} className = "border rounded px-4 py-2 m-1 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 3 + cellIndex)} >
+              {gameState.board.slice(rowIndex * 12, (rowIndex + 1) * 12).map((cell: string, cellIndex: number) => ( // Change this line
+                <div key={rowIndex * 12 + cellIndex} className = "border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 12 + cellIndex)} >
                   {cell}
                 </div>
               ))}

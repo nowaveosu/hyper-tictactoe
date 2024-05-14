@@ -16,7 +16,7 @@ io.on("connection", (socket) => {
         if (!rooms[roomName]) {
             rooms[roomName] = {
                 players: [],
-                board: Array(9).fill(null),
+                board: Array(144).fill(null), 
                 turn: 0,
             };
         }
