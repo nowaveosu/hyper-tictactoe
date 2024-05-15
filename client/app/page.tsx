@@ -9,6 +9,7 @@ export default function Home() {
   const [message, setMessage] = useState("")
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
+  const [rspChoice, setRspChoice] = useState(""); 
   
   const handleSendMessage = () => {
     socket.emit("message",message, roomName)
@@ -20,6 +21,10 @@ export default function Home() {
 
   const handleMakeMove = (index: number) => {
     socket.emit("makeMove", index, roomName);
+  }
+
+  const handlePlayRsp = () => {
+    socket.emit("playRSP", rspChoice, roomName);
   }
   
   useEffect(() =>{
@@ -42,17 +47,26 @@ export default function Home() {
   return (
     <div>
       <div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
-      <div className='flex flex-wrap justify-center'>
-          {gameState && Array.from({ length: 12 }).map((_, rowIndex) => ( // Change this line
+      {gameState && gameState.rspResult ? (
+        <div className='flex flex-wrap justify-center'>
+          {Array.from({ length: 12 }).map((_, rowIndex) => ( 
             <div key = {rowIndex} className='flex justify-center w-full'>
-              {gameState.board.slice(rowIndex * 12, (rowIndex + 1) * 12).map((cell: string, cellIndex: number) => ( // Change this line
+              {gameState.board.slice(rowIndex * 12, (rowIndex + 1) * 12).map((cell: string, cellIndex: number) => ( 
                 <div key={rowIndex * 12 + cellIndex} className = "border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 12 + cellIndex)} >
                   {cell}
                 </div>
               ))}
             </div>
           ))}
-      </div>
+        </div>
+      ) : (
+        <div className="flex gap-2 align-center justify-center"> 
+          <button onClick={() => setRspChoice("rock")}>Rock</button>
+          <button onClick={() => setRspChoice("paper")}>Paper</button>
+          <button onClick={() => setRspChoice("scissors")}>Scissors</button>
+          <button onClick={handlePlayRsp}>Play</button>
+        </div>
+      )}
 
       <div className="flex flex-col gap-2 border rounded-lg p-10">
         {inbox.map((message: string, index: number) => (
