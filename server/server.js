@@ -58,8 +58,10 @@ io.on("connection", (socket) => {
                     (p1.choice === "paper" && p2.choice === "rock")
                 ) {
                     room.rpsResult = p1.player;
+                    room.players = [p1.player, p2.player]; 
                 } else {
                     room.rpsResult = p2.player;
+                    room.players = [p2.player, p1.player]; 
                 }
                 room.rps = [];
                 io.to(roomName).emit("gameState", room);
