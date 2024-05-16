@@ -60,7 +60,7 @@ export default function Home() {
     <div>
       <div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
       {joined ? ( 
-        gameState && gameState.rpsResult ? (
+        gameState && gameState.rpsResult ? ( 
           <div className='flex flex-wrap justify-center'>
             {Array.from({ length: 12 }).map((_, rowIndex) => ( 
               <div key = {rowIndex} className='flex justify-center w-full'>
@@ -87,7 +87,7 @@ export default function Home() {
         )
       ) : (
         <div className="flex justify-center">
-          <Image src={logo} alt="logo1" />
+          <Image src={logo} alt="logo" />
         </div>
       )}
 
@@ -100,14 +100,22 @@ export default function Home() {
       <div className="flex gap-2 align-center justify-center">
         <input onChange={(e) => {
           setMessage(e.target.value)
-        }}type="text" name="message" className="flex-1 bg-black border rounded px-2 py-1"/>
+        }} onKeyPress={(e) => { 
+          if (e.key === 'Enter') {
+            handleSendMessage();
+          }
+        }} type="text" name="message" className="flex-1 bg-black border rounded px-2 py-1"/>
         <button className="w-40" onClick={handleSendMessage}>Send message</button>
       </div>
       
       <div className="flex gap-2 align-center justify-center">
         <input onChange={(e) => {
           setRoomName(e.target.value)
-        }}type="text" name="room" className="flex-1 bg-black border rounded px-2 py-1"/>
+        }} onKeyPress={(e) => { 
+          if (e.key === 'Enter') {
+            handleJoinRoom();
+          }
+        }} type="text" name="room" className="flex-1 bg-black border rounded px-2 py-1"/>
         <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
       </div>
 
