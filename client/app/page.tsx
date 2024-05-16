@@ -1,6 +1,14 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { io } from "socket.io-client";
+import Image from 'next/image';
+
+import rock from "../public/rock.png";
+import paper from "../public/paper.png";
+import scissors from "../public/scissors.png";
+import rock_checked from "../public/rock_checked.png";
+import paper_checked from "../public/paper_checked.png";
+import scissors_checked from "../public/scissors_checked.png";
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
@@ -22,8 +30,9 @@ export default function Home() {
     socket.emit("makeMove", index, roomName);
   }
 
-  const handlePlayRPS = () => { 
-    socket.emit("playRPS", rpsChoice, roomName);
+  const handlePlayRPS = (choice: string) => { 
+    setRpsChoice(choice);
+    socket.emit("playRPS", choice, roomName);
   }
   
   useEffect(() =>{
@@ -60,10 +69,15 @@ export default function Home() {
         </div>
       ) : (
         <div className="flex gap-2 align-center justify-center"> 
-          <button onClick={() => setRpsChoice("rock")}>Rock</button>
-          <button onClick={() => setRpsChoice("paper")}>Paper</button>
-          <button onClick={() => setRpsChoice("scissors")}>Scissors</button>
-          <button onClick={handlePlayRPS}>Play</button>
+          <button onClick={() => handlePlayRPS("rock")}>
+            <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
+          </button>
+          <button onClick={() => handlePlayRPS("paper")}>
+            <Image src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
+          </button>
+          <button onClick={() => handlePlayRPS("scissors")}>
+            <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
+          </button>
         </div>
       )}
 
