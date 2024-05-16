@@ -1,5 +1,3 @@
-
-
 const io = require("socket.io")(3000, {
     cors: {
         origin: "http://localhost:3001",
@@ -20,8 +18,8 @@ io.on("connection", (socket) => {
                 players: [],
                 board: Array(144).fill(null), 
                 turn: 0,
-                rsp: [], 
-                rspResult: null, 
+                rps: [], 
+                rpsResult: null, 
             };
         }
         rooms[roomName].players.push(socket.id);  
@@ -39,31 +37,31 @@ io.on("connection", (socket) => {
 
     socket.on("makeMove", (index, roomName) => {  
         let room = rooms[roomName];
-        if (room && room.players[room.turn % 2] === socket.id && room.board[index] === null && room.rspResult) { 
+        if (room && room.players[room.turn % 2] === socket.id && room.board[index] === null && room.rpsResult) { 
             room.board[index] = room.turn % 2 === 0 ? "X" : "O";   
             room.turn++;   
             io.to(roomName).emit("gameState", room);
         }
     });
 
-    socket.on("playRSP", (choice, roomName) => { 
+    socket.on("playRPS", (choice, roomName) => { 
         let room = rooms[roomName];
         if (room) {
-            room.rsp.push({ player: socket.id, choice });
-            if (room.rsp.length === 2) {
-                let [p1, p2] = room.rsp;
+            room.rps.push({ player: socket.id, choice });
+            if (room.rps.length === 2) {
+                let [p1, p2] = room.rps;
                 if (p1.choice === p2.choice) {
-                    room.rspResult = "Draw";
+                    room.rpsResult = "Draw";
                 } else if (
                     (p1.choice === "rock" && p2.choice === "scissors") ||
                     (p1.choice === "scissors" && p2.choice === "paper") ||
                     (p1.choice === "paper" && p2.choice === "rock")
                 ) {
-                    room.rspResult = p1.player;
+                    room.rpsResult = p1.player;
                 } else {
-                    room.rspResult = p2.player;
+                    room.rpsResult = p2.player;
                 }
-                room.rsp = [];
+                room.rps = [];
                 io.to(roomName).emit("gameState", room);
             }
         }

@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useEffect, useState } from 'react';
 import { io } from "socket.io-client";
 
@@ -9,7 +8,7 @@ export default function Home() {
   const [message, setMessage] = useState("")
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
-  const [rspChoice, setRspChoice] = useState(""); 
+  const [rpsChoice, setRpsChoice] = useState(""); 
   
   const handleSendMessage = () => {
     socket.emit("message",message, roomName)
@@ -23,8 +22,8 @@ export default function Home() {
     socket.emit("makeMove", index, roomName);
   }
 
-  const handlePlayRsp = () => {
-    socket.emit("playRSP", rspChoice, roomName);
+  const handlePlayRPS = () => { 
+    socket.emit("playRPS", rpsChoice, roomName);
   }
   
   useEffect(() =>{
@@ -47,7 +46,7 @@ export default function Home() {
   return (
     <div>
       <div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
-      {gameState && gameState.rspResult ? (
+      {gameState && gameState.rpsResult ? ( 
         <div className='flex flex-wrap justify-center'>
           {Array.from({ length: 12 }).map((_, rowIndex) => ( 
             <div key = {rowIndex} className='flex justify-center w-full'>
@@ -61,10 +60,10 @@ export default function Home() {
         </div>
       ) : (
         <div className="flex gap-2 align-center justify-center"> 
-          <button onClick={() => setRspChoice("rock")}>Rock</button>
-          <button onClick={() => setRspChoice("paper")}>Paper</button>
-          <button onClick={() => setRspChoice("scissors")}>Scissors</button>
-          <button onClick={handlePlayRsp}>Play</button>
+          <button onClick={() => setRpsChoice("rock")}>Rock</button>
+          <button onClick={() => setRpsChoice("paper")}>Paper</button>
+          <button onClick={() => setRpsChoice("scissors")}>Scissors</button>
+          <button onClick={handlePlayRPS}>Play</button>
         </div>
       )}
 
