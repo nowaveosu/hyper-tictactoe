@@ -62,6 +62,9 @@ export default function Home() {
       {joined ? ( 
         gameState && gameState.rpsResult ? ( 
           <div className='flex flex-wrap justify-center'>
+            <div className='w-full text-center text-lg mb-4'>
+              {gameState.players[gameState.turn % 2] === socket.id ? "** 🤡 Your turn **" : "👺 Enemy's turn"}
+            </div>
             {Array.from({ length: 12 }).map((_, rowIndex) => ( 
               <div key = {rowIndex} className='flex justify-center w-full'>
                 {gameState.board.slice(rowIndex * 12, (rowIndex + 1) * 12).map((cell: string, cellIndex: number) => ( 
@@ -73,17 +76,23 @@ export default function Home() {
             ))}
           </div>
         ) : (
-          <div className="flex gap-2 align-center justify-center"> 
-            <button onClick={() => handlePlayRPS("rock")}>
-              <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
-            </button>
-            <button onClick={() => handlePlayRPS("paper")}>
-              <Image src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
-            </button>
-            <button onClick={() => handlePlayRPS("scissors")}>
-              <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
-            </button>
-          </div>
+          gameState && gameState.players.length === 2 ? ( 
+            <div className="flex gap-2 align-center justify-center"> 
+              <button onClick={() => handlePlayRPS("rock")}>
+                <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
+              </button>
+              <button onClick={() => handlePlayRPS("paper")}>
+                <Image src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
+              </button>
+              <button onClick={() => handlePlayRPS("scissors")}>
+                <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
+              </button>
+            </div>
+          ) : (
+            <div className="flex justify-center"> 
+              <p>Waiting for another user...</p>
+            </div>
+          )
         )
       ) : (
         <div className="flex justify-center">
