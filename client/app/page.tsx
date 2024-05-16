@@ -113,7 +113,7 @@ export default function Home() {
           if (e.key === 'Enter') {
             handleSendMessage();
           }
-        }} type="text" name="message" className="flex-1 bg-black border rounded px-2 py-1"/>
+        }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1"/>
         <button className="w-40" onClick={handleSendMessage}>Send message</button>
       </div>
       
@@ -124,7 +124,7 @@ export default function Home() {
           if (e.key === 'Enter') {
             handleJoinRoom();
           }
-        }} type="text" name="room" className="flex-1 bg-black border rounded px-2 py-1"/>
+        }} type="text" name="room" placeholder="Type room1 and press enter (room1, room2...etc)" className="flex-1 bg-black border rounded px-2 py-1"/>
         <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
       </div>
 
