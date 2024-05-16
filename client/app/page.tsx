@@ -1,8 +1,10 @@
 "use client"
+
 import React, { useEffect, useState } from 'react';
 import { io } from "socket.io-client";
 import Image from 'next/image';
 
+import logo from "../public/logo.png";
 import rock from "../public/rock.png";
 import paper from "../public/paper.png";
 import scissors from "../public/scissors.png";
@@ -17,6 +19,7 @@ export default function Home() {
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
   const [rpsChoice, setRpsChoice] = useState(""); 
+  const [joined, setJoined] = useState(false); 
   
   const handleSendMessage = () => {
     socket.emit("message",message, roomName)
@@ -24,6 +27,7 @@ export default function Home() {
   
   const handleJoinRoom= () => {
     socket.emit("joinRoom", roomName)
+    setJoined(true); 
   }
 
   const handleMakeMove = (index: number) => {
@@ -55,29 +59,35 @@ export default function Home() {
   return (
     <div>
       <div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
-      {gameState && gameState.rpsResult ? ( 
-        <div className='flex flex-wrap justify-center'>
-          {Array.from({ length: 12 }).map((_, rowIndex) => ( 
-            <div key = {rowIndex} className='flex justify-center w-full'>
-              {gameState.board.slice(rowIndex * 12, (rowIndex + 1) * 12).map((cell: string, cellIndex: number) => ( 
-                <div key={rowIndex * 12 + cellIndex} className = "border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 12 + cellIndex)} >
-                  {cell}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+      {joined ? ( 
+        gameState && gameState.rpsResult ? (
+          <div className='flex flex-wrap justify-center'>
+            {Array.from({ length: 12 }).map((_, rowIndex) => ( 
+              <div key = {rowIndex} className='flex justify-center w-full'>
+                {gameState.board.slice(rowIndex * 12, (rowIndex + 1) * 12).map((cell: string, cellIndex: number) => ( 
+                  <div key={rowIndex * 12 + cellIndex} className = "border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 12 + cellIndex)} >
+                    {cell}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex gap-2 align-center justify-center"> 
+            <button onClick={() => handlePlayRPS("rock")}>
+              <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
+            </button>
+            <button onClick={() => handlePlayRPS("paper")}>
+              <Image src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
+            </button>
+            <button onClick={() => handlePlayRPS("scissors")}>
+              <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
+            </button>
+          </div>
+        )
       ) : (
-        <div className="flex gap-2 align-center justify-center"> 
-          <button onClick={() => handlePlayRPS("rock")}>
-            <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
-          </button>
-          <button onClick={() => handlePlayRPS("paper")}>
-            <Image src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
-          </button>
-          <button onClick={() => handlePlayRPS("scissors")}>
-            <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
-          </button>
+        <div className="flex justify-center">
+          <Image src={logo} alt="logo1" />
         </div>
       )}
 
