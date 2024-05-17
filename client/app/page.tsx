@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { io } from "socket.io-client";
 import Image from 'next/image';
+import Link from 'next/link';
 
 import logo from "../public/logo.png";
 import rock from "../public/rock.png";
@@ -11,6 +12,7 @@ import scissors from "../public/scissors.png";
 import rock_checked from "../public/rock_checked.png";
 import paper_checked from "../public/paper_checked.png";
 import scissors_checked from "../public/scissors_checked.png";
+import github_icon from "../public/github_icon.png"
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
@@ -130,7 +132,11 @@ export default function Home() {
         }} type="text" name="room" placeholder="Type room1 and press enter (room1, room2...etc)" className="flex-1 bg-black border rounded px-2 py-1"/>
         <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
       </div>
-
+      
+      <Link href="https://github.com/nowaveosu" target="_blank">
+        <div className='flex justify-center mt-40 text-stone-200'> created by nowaveosu <Image src={github_icon} alt="github icon" className='w-7 ml-1' /></div>
+      </Link>
+      
     </div>
     </div>
   );
