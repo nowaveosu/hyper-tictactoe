@@ -77,16 +77,19 @@ export default function Home() {
           </div>
         ) : (
           gameState && gameState.players.length === 2 ? ( 
-            <div className="flex gap-2 align-center justify-center"> 
-              <button onClick={() => handlePlayRPS("rock")}>
-                <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
-              </button>
-              <button onClick={() => handlePlayRPS("paper")}>
-                <Image src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
-              </button>
-              <button onClick={() => handlePlayRPS("scissors")}>
-                <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
-              </button>
+            <div>
+              <div className='flex justify-center w-full text-xl mb-6'> Choose one </div>
+              <div className="flex gap-2 align-center justify-center"> 
+                <button onClick={() => handlePlayRPS("rock")}>
+                  <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
+                </button>
+                <button onClick={() => handlePlayRPS("paper")}>
+                  <Image src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
+                </button>
+                <button onClick={() => handlePlayRPS("scissors")}>
+                  <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
+                </button>
+              </div>
             </div>
           ) : (
             <div className="flex justify-center"> 
