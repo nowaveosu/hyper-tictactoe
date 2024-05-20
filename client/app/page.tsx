@@ -67,10 +67,10 @@ export default function Home() {
             <div className='w-full text-center text-lg mb-4'>
               {gameState.players[gameState.turn % 2] === socket.id ? "** 🤡 Your turn **" : "👺 Enemy's turn"}
             </div>
-            {Array.from({ length: 12 }).map((_, rowIndex) => ( 
+            {Array.from({ length: 4 }).map((_, rowIndex) => ( 
               <div key = {rowIndex} className='flex justify-center w-full'>
-                {gameState.board.slice(rowIndex * 12, (rowIndex + 1) * 12).map((cell: string, cellIndex: number) => ( 
-                  <div key={rowIndex * 12 + cellIndex} className = "border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 12 + cellIndex)} >
+                {gameState.board.slice(rowIndex * 4, (rowIndex + 1) * 4).map((cell: string, cellIndex: number) => ( 
+                  <div key={rowIndex * 4 + cellIndex} className = "border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 4 + cellIndex)} >
                     {cell}
                   </div>
                 ))}
