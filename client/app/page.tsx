@@ -48,15 +48,22 @@ export default function Home() {
 
   useEffect(() => {
     if (socket) {
-      socket.on('message',(message: string) => {
-        setInbox((prevInbox) => [...prevInbox, message]) 
-      })
+        socket.on("message", (message: string) => {
+            setInbox((prevInbox) => [...prevInbox, message]);
+            if (message === "You win!") {
 
-      socket.on('gameState', (gameState: any) => {
-        setGameState(gameState);
-      })
+                alert("You win!");
+            } else if (message === "You lose!") {
+
+                alert("You lose!");
+            }
+        });
+
+        socket.on("gameState", (gameState: any) => {
+            setGameState(gameState);
+        });
     }
-  }, [socket]) 
+}, [socket]);
 
   return (
     <div>
@@ -69,8 +76,8 @@ export default function Home() {
             </div>
             {Array.from({ length: 4 }).map((_, rowIndex) => ( 
               <div key = {rowIndex} className='flex justify-center w-full'>
-                {gameState.board.slice(rowIndex * 4, (rowIndex + 1) * 4).map((cell: string, cellIndex: number) => ( 
-                  <div key={rowIndex * 4 + cellIndex} className = "border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 4 + cellIndex)} >
+                {gameState.board.slice(rowIndex * 3, (rowIndex + 1) * 3).map((cell: string, cellIndex: number) => ( 
+                  <div key={rowIndex * 3 + cellIndex} className = "border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 3 + cellIndex)} >
                     {cell}
                   </div>
                 ))}

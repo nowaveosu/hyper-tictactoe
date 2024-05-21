@@ -16,7 +16,7 @@ io.on("connection", (socket) => {
         if (!rooms[roomName]) {      
             rooms[roomName] = {
                 players: [],
-                board: Array(16).fill(null), 
+                board: Array(9).fill(null), 
                 turn: 0,
                 rps: [], 
                 rpsResult: null, 
@@ -35,14 +35,34 @@ io.on("connection", (socket) => {
         }
     });
 
-    socket.on("makeMove", (index, roomName) => {  
+    socket.on("makeMove", (index, roomName) => {
         let room = rooms[roomName];
-        if (room && room.players[room.turn % 2] === socket.id && room.board[index] === null && room.rpsResult) { 
-            room.board[index] = room.turn % 2 === 0 ? "X" : "O";   
-            room.turn++;   
+        if (room && room.players[room.turn % 2] === socket.id && room.board[index] === null && room.rpsResult) {
+            room.board[index] = room.turn % 2 === 0 ? "X" : "O";
+            room.turn++;
             io.to(roomName).emit("gameState", room);
+    
+         
+            const winningPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+                [0, 4, 8], [2, 4, 6] 
+            ];
+    
+            for (const pattern of winningPatterns) {
+                const [a, b, c] = pattern;
+                if (room.board[a] && room.board[a] === room.board[b] && room.board[a] === room.board[c]) {
+                    const winner = room.players[(room.turn + 1) % 2];
+                    const loser = room.players[room.turn % 2];
+                    
+                    io.to(winner).emit("message", "You win!");
+                    io.to(loser).emit("message", "You lose!");
+                    break;
+                }
+            }
         }
     });
+
 
     socket.on("playRPS", (choice, roomName) => { 
         let room = rooms[roomName];
