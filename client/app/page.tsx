@@ -80,7 +80,7 @@ export default function Home() {
                                     <div
                                         key={rowIndex * 4 + cellIndex}
                                         className={`border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center ${
-                                            cell === "X" ? "text-red-500" : cell === "O" ? "text-blue-500" : ""
+                                            cell === "X" ? "text-orange-400" : cell === "O" ? "text-blue-400" : ""
                                         }`}
                                         onClick={() => handleMakeMove(rowIndex * 4 + cellIndex)}
                                     >

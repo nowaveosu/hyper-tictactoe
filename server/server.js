@@ -34,18 +34,27 @@ io.on("connection", (socket) => {
             io.emit("message", message);
         }
     });
+    
 
     socket.on("makeMove", (index, roomName) => {
         let room = rooms[roomName];
         if (room && room.players[room.turn % 2] === socket.id && room.board[index] === null && room.rpsResult) {
-            room.board[index] = room.turn % 2 === 0 ? "X" : "O";
+            const playerSymbol = room.turn % 2 === 0 ? "X" : "O";
+            const playerSymbolCount = room.board.filter(cell => cell === playerSymbol).length;
+    
+            if (playerSymbolCount >= 4) {
+                const oldestIndex = room.board.indexOf(playerSymbol);
+                room.board[oldestIndex] = null;
+            }
+    
+            room.board[index] = playerSymbol;
             room.turn++;
             io.to(roomName).emit("gameState", room);
     
             const winningPatterns = [
-                [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], // 승리 패턴 추가
-                [0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], // 승리 패턴 추가
-                [0, 5, 10, 15], [3, 6, 9, 12] // 승리 패턴 추가
+                [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15],
+                [0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15],
+                [0, 5, 10, 15], [3, 6, 9, 12]
             ];
     
             for (const pattern of winningPatterns) {
@@ -61,7 +70,7 @@ io.on("connection", (socket) => {
             }
         }
     });
-
+    
 
     socket.on("playRPS", (choice, roomName) => { 
         let room = rooms[roomName];
