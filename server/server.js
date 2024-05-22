@@ -16,7 +16,7 @@ io.on("connection", (socket) => {
         if (!rooms[roomName]) {      
             rooms[roomName] = {
                 players: [],
-                board: Array(9).fill(null), 
+                board: Array(16).fill(null), 
                 turn: 0,
                 rps: [], 
                 rpsResult: null, 
@@ -42,21 +42,20 @@ io.on("connection", (socket) => {
             room.turn++;
             io.to(roomName).emit("gameState", room);
     
-         
             const winningPatterns = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8], 
-                [0, 3, 6], [1, 4, 7], [2, 5, 8], 
-                [0, 4, 8], [2, 4, 6] 
+                [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], // 승리 패턴 추가
+                [0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], // 승리 패턴 추가
+                [0, 5, 10, 15], [3, 6, 9, 12] // 승리 패턴 추가
             ];
     
             for (const pattern of winningPatterns) {
-                const [a, b, c] = pattern;
-                if (room.board[a] && room.board[a] === room.board[b] && room.board[a] === room.board[c]) {
+                const [a, b, c, d] = pattern;
+                if (room.board[a] && room.board[a] === room.board[b] && room.board[a] === room.board[c] && room.board[a] === room.board[d]) {
                     const winner = room.players[(room.turn + 1) % 2];
                     const loser = room.players[room.turn % 2];
                     
-                    io.to(winner).emit("message", "You win!");
-                    io.to(loser).emit("message", "You lose!");
+                    io.to(winner).emit("message", "** You win! **");
+                    io.to(loser).emit("message", "** You lose! **");
                     break;
                 }
             }
