@@ -45,16 +45,16 @@ io.on("connection", (socket) => {
         if (room && room.players[room.turn % 2] === socket.id && room.board[index] === null && room.rpsResult) {
             const playerSymbol = room.turn % 2 === 0 ? "X" : "O";
             const symbolQueue = room.playerSymbolQueues[playerSymbol];
-
+            let oldestIndex = null; 
             if (symbolQueue.length >= 4) {
-                const oldestIndex = symbolQueue.shift();
+                oldestIndex = symbolQueue.shift();
                 room.board[oldestIndex] = null;
             }
 
             room.board[index] = playerSymbol;
             symbolQueue.push(index); 
             room.turn++;
-            io.to(roomName).emit("gameState", room);
+            io.to(roomName).emit("gameState", { ...room, oldestIndex });
     
             const winningPatterns = [
                 [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15],

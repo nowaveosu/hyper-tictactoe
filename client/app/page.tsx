@@ -40,7 +40,34 @@ export default function Home() {
     setRpsChoice(choice);
     socket.emit("playRPS", choice, roomName);
   }
-  
+  const renderCell = (cell: string, cellIndex: number) => {
+    const currentPlayer = gameState.players[gameState.turn % 2]; 
+    const nextPlayer = gameState.players[(gameState.turn + 1) % 2]; 
+    const isCurrentPlayer = currentPlayer === socket.id;
+    const isNextPlayer = nextPlayer === socket.id;
+
+    
+    const nextPlayerSymbol = nextPlayer === gameState.players[0] ? "X" : "O";
+    const nextSymbolQueue = gameState.playerSymbolQueues[nextPlayerSymbol];
+    const nextOldestIndex = nextSymbolQueue.length >= 4 ? nextSymbolQueue[0] : null;
+
+    const isOldest = nextOldestIndex === cellIndex && isNextPlayer; 
+
+    console.log("this is "+isOldest)
+    return (
+      <div
+        key={cellIndex}
+        className={`border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center ${
+          cell === "X" ? (isOldest ? "text-yellow-400" : "text-orange-400") 
+            : cell === "O" ? (isOldest ? "text-green-400" : "text-blue-400")
+            : ""
+        }`}
+        onClick={() => handleMakeMove(cellIndex)}
+      >
+        {cell}
+      </div>
+    );
+  };
   useEffect(() =>{
     const socket = io('http://localhost:3000')
     setSocket(socket)
@@ -58,10 +85,15 @@ export default function Home() {
                 alert("You lose!");
             }
         });
-
-        socket.on("gameState", (gameState: any) => {
-            setGameState(gameState);
-        });
+        
+        socket.on("gameState", (newGameState: any) => {
+          console.log("Client - received oldestIndex:", newGameState.oldestIndex);  
+          setGameState((prevGameState:any) => ({
+              ...prevGameState,
+              ...newGameState,
+              oldestIndex: newGameState.oldestIndex
+          }));
+      });
     }
 }, [socket]);
 
@@ -74,21 +106,9 @@ export default function Home() {
             <div className='w-full text-center text-lg mb-4'>
               {gameState.players[gameState.turn % 2] === socket.id ? "** 🤡 Your turn **" : "👺 Enemy's turn"}
             </div>
-            {Array.from({ length: 4 }).map((_, rowIndex) => ( 
-              <div key = {rowIndex} className='flex justify-center w-full'>
-                {gameState.board.slice(rowIndex * 4, (rowIndex + 1) * 4).map((cell: string, cellIndex: number) => (
-                    <div
-                        key={rowIndex * 4 + cellIndex}
-                        className={`border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center ${
-                            cell === "X" ? "text-orange-500" : cell === "O" ? "text-blue-500" : ""
-                        }`}
-                        onClick={() => handleMakeMove(rowIndex * 4 + cellIndex)}
-                    >
-                        {cell}
-                    </div>
-                ))}
+              <div className="grid grid-cols-4 gap-1">
+                  {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
               </div>
-            ))}
           </div>
         ) : (
           gameState && gameState.players.length === 2 ? ( 
