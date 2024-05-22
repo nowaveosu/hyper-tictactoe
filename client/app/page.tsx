@@ -40,18 +40,16 @@ export default function Home() {
     setRpsChoice(choice);
     socket.emit("playRPS", choice, roomName);
   }
+  
   const renderCell = (cell: string, cellIndex: number) => {
-    const currentPlayer = gameState.players[gameState.turn % 2]; 
-    const nextPlayer = gameState.players[(gameState.turn + 1) % 2]; 
+    const currentPlayer = gameState.players[gameState.turn % 2];
     const isCurrentPlayer = currentPlayer === socket.id;
-    const isNextPlayer = nextPlayer === socket.id;
 
-    
-    const nextPlayerSymbol = nextPlayer === gameState.players[0] ? "X" : "O";
-    const nextSymbolQueue = gameState.playerSymbolQueues[nextPlayerSymbol];
-    const nextOldestIndex = nextSymbolQueue.length >= 4 ? nextSymbolQueue[0] : null;
+    const currentPlayerSymbol = currentPlayer === gameState.players[0] ? "X" : "O";
+    const currentSymbolQueue = gameState.playerSymbolQueues[currentPlayerSymbol];
+    const currentOldestIndex = currentSymbolQueue.length >= 4 ? currentSymbolQueue[0] : null;
 
-    const isOldest = nextOldestIndex === cellIndex && isNextPlayer; 
+    const isOldest = currentOldestIndex === cellIndex; 
 
     console.log("this is "+isOldest)
     return (
