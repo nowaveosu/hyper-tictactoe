@@ -20,6 +20,10 @@ io.on("connection", (socket) => {
                 turn: 0,
                 rps: [], 
                 rpsResult: null, 
+                playerSymbolQueues: {  
+                    X: [],
+                    O: []
+                },
             };
         }
         rooms[roomName].players.push(socket.id);  
@@ -40,14 +44,15 @@ io.on("connection", (socket) => {
         let room = rooms[roomName];
         if (room && room.players[room.turn % 2] === socket.id && room.board[index] === null && room.rpsResult) {
             const playerSymbol = room.turn % 2 === 0 ? "X" : "O";
-            const playerSymbolCount = room.board.filter(cell => cell === playerSymbol).length;
-    
-            if (playerSymbolCount >= 4) {
-                const oldestIndex = room.board.indexOf(playerSymbol);
+            const symbolQueue = room.playerSymbolQueues[playerSymbol];
+
+            if (symbolQueue.length >= 4) {
+                const oldestIndex = symbolQueue.shift();
                 room.board[oldestIndex] = null;
             }
-    
+
             room.board[index] = playerSymbol;
+            symbolQueue.push(index); 
             room.turn++;
             io.to(roomName).emit("gameState", room);
     
