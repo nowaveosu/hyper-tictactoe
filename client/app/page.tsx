@@ -76,11 +76,17 @@ export default function Home() {
             </div>
             {Array.from({ length: 4 }).map((_, rowIndex) => ( 
               <div key = {rowIndex} className='flex justify-center w-full'>
-                {gameState.board.slice(rowIndex * 4, (rowIndex + 1) * 4).map((cell: string, cellIndex: number) => ( 
-                  <div key={rowIndex * 4 + cellIndex} className = "border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center" onClick={() => handleMakeMove(rowIndex * 4 + cellIndex)} >
-                    {cell}
-                  </div>
-                ))}
+                {gameState.board.slice(rowIndex * 4, (rowIndex + 1) * 4).map((cell: string, cellIndex: number) => (
+                                    <div
+                                        key={rowIndex * 4 + cellIndex}
+                                        className={`border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center ${
+                                            cell === "X" ? "text-red-500" : cell === "O" ? "text-blue-500" : ""
+                                        }`}
+                                        onClick={() => handleMakeMove(rowIndex * 4 + cellIndex)}
+                                    >
+                                        {cell}
+                                    </div>
+                                ))}
               </div>
             ))}
           </div>
