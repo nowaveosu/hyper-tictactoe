@@ -64,9 +64,9 @@ export default function Home() {
     return (
       <div
         key={cellIndex}
-        className={`border text-xl px-4 py-2 w-10 h-10 flex items-center justify-center ${
-          cell === "X" ? (isOldest ? "text-yellow-400" : "text-orange-400") 
-            : cell === "O" ? (isOldest ? "text-green-400" : "text-blue-400")
+        className={`border text-4xl px-4 py-2 w-16 h-16 flex items-center justify-center ${
+          cell === "X" ? (isOldest ? "text-orange-800" : "text-orange-400") 
+            : cell === "O" ? (isOldest ? "text-blue-800" : "text-blue-400")
             : ""
         }`}
         onClick={() => handleMakeMove(cellIndex)}
@@ -117,7 +117,7 @@ export default function Home() {
             <div className='w-full text-center text-lg mb-4'>
               {gameState.players[gameState.turn % 2] === socket.id ? "** 🤡 Your turn **" : "👺 Enemy's turn"}
             </div>
-              <div className="grid grid-cols-4 gap-1">
+              <div className="grid grid-cols-4 gap-0">
                   {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
               </div>
               {showRematchButton && (  
