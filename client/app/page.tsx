@@ -22,7 +22,8 @@ export default function Home() {
   const [gameState, setGameState] = useState<any>(undefined);
   const [rpsChoice, setRpsChoice] = useState(""); 
   const [joined, setJoined] = useState(false); 
-  
+  const [showRematchButton, setShowRematchButton] = useState(false);
+
   const handleSendMessage = () => {
     socket.emit("message",message, roomName)
   }
@@ -40,6 +41,15 @@ export default function Home() {
     setRpsChoice(choice);
     socket.emit("playRPS", choice, roomName);
   }
+
+  const handleRematch = () => {
+    const newRoomName = roomName + "-re";
+    setRoomName(newRoomName);
+    socket.emit("joinRoom", newRoomName);
+    setJoined(true);
+    setShowRematchButton(false);
+    setRpsChoice("");  
+  };
   
   const renderCell = (cell: string, cellIndex: number) => {
     const currentPlayer = gameState.players[gameState.turn % 2];
@@ -51,7 +61,6 @@ export default function Home() {
 
     const isOldest = currentOldestIndex === cellIndex; 
 
-    console.log("this is "+isOldest)
     return (
       <div
         key={cellIndex}
@@ -66,6 +75,7 @@ export default function Home() {
       </div>
     );
   };
+  
   useEffect(() =>{
     const socket = io('http://localhost:3000')
     setSocket(socket)
@@ -81,6 +91,9 @@ export default function Home() {
             } else if (message === "** You lose! **") {
 
                 alert("You lose!");
+            }
+            if (message === "** You win! **" || message === "** You lose! **") {
+              setShowRematchButton(true);
             }
         });
         
@@ -107,7 +120,14 @@ export default function Home() {
               <div className="grid grid-cols-4 gap-1">
                   {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
               </div>
+              {showRematchButton && (  
+                  <div className="flex justify-center">
+                      <button className="w-40" onClick={handleRematch}>Rematch</button>
+                  </div>
+              )}
           </div>
+
+          
         ) : (
           gameState && gameState.players.length === 2 ? ( 
             <div>
