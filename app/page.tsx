@@ -106,7 +106,7 @@ export default function Home() {
         });
         
         socket.on("gameState", (newGameState: any) => {
-          console.log("Client - received oldestIndex:", newGameState.oldestIndex);  
+
           setGameState((prevGameState:any) => ({
               ...prevGameState,
               ...newGameState,
