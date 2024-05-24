@@ -161,6 +161,11 @@ export default function Home() {
       ) : (
         <div className="flex justify-center">
           <Image src={logo} alt="logo" />
+            <div className="mt-4 flex gap-4"> 
+              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room1")}>Room 1</button>
+              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room2")}>Room 2</button>
+              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room3")}>Room 3</button>
+            </div>
         </div>
       )}
 
@@ -183,14 +188,7 @@ export default function Home() {
         <button className="w-40" onClick={handleSendMessage}>Send Chat</button>
       </div>
       
-      <div className="flex flex-col items-center">
-            <Image src={logo} alt="logo" />
-            <div className="mt-4 flex gap-4"> 
-              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room1")}>Room 1</button>
-              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room2")}>Room 2</button>
-              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room3")}>Room 3</button>
-            </div>
-          </div>
+
       
       <Link href="https://github.com/nowaveosu" target="_blank">
         <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'> created by nowaveosu <Image src={github_icon} alt="github icon" className='w-6 ml-1' /></div>
