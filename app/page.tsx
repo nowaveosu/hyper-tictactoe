@@ -76,10 +76,10 @@ export default function Home() {
     );
   };
   
-  useEffect(() =>{
-    const socket = io('http://localhost:3000')
-    setSocket(socket)
-  },[])
+  useEffect(() => {
+    const socket = io("https://hyper-tictactoe.com"); 
+    setSocket(socket);
+  }, []);
 
   useEffect(() => {
     if (socket) {
@@ -146,7 +146,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="flex justify-center"> 
-              <p>Waiting for another 1 user...</p>
+              <p>Waiting for another user....</p>
             </div>
           )
         )

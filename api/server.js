@@ -1,9 +1,10 @@
 const io = require("socket.io")(3000, {
     cors: {
-        origin: "http://localhost:3001",
+        origin: ["https://hyper-tictactoe.com", "https://www.hyper-tictactoe.com"], 
         methods: ["GET", "POST"],
     },
 });
+
 
 let rooms = {};
 
