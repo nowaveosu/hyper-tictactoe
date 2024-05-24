@@ -121,7 +121,7 @@ export default function Home() {
     <div>
       <div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
       {joined ? ( 
-        gameState && gameState.rpsResult ? ( 
+        gameState ? ( 
           <div className='flex flex-wrap justify-center'>
             <div className='w-full text-center text-lg mb-4'>
               {gameState.players[gameState.turn % 2] === socket.id ? "** 🤡 Your turn **" : "👺 Enemy's turn"}
@@ -138,26 +138,11 @@ export default function Home() {
 
           
         ) : (
-          gameState && gameState.players.length === 2 ? ( 
-            <div>
-              <div className='flex justify-center w-full text-xl mb-6'> Rock paper scissors to decide the first! </div>
-              <div className="flex gap-2 align-center justify-center"> 
-                <button onClick={() => handlePlayRPS("rock")}>
-                  <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
-                </button>
-                <button onClick={() => handlePlayRPS("paper")}>
-                  <Image src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
-                </button>
-                <button onClick={() => handlePlayRPS("scissors")}>
-                  <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
-                </button>
-              </div>
-            </div>
-          ) : (
+          
             <div className="flex justify-center"> 
               <p>Waiting for another user...</p>
             </div>
-          )
+          
         )
       ) : (
         <div className="flex justify-center">
