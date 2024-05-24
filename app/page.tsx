@@ -156,9 +156,9 @@ export default function Home() {
         </div>
       )}
 
-      <div className="flex flex-col gap-2 border rounded-lg p-10 max-h-[200px] overflow-y-auto"> 
+      <div className="flex flex-col gap-2 border rounded-lg p-10 max-h-[180px] overflow-y-auto"> 
           {inbox.map((message: string, index: number) => (
-              <div key={index} className="border rounded px-4 py-2">{message}</div>
+              <div key={index} className="border rounded px-4 py-2 bg-slate-800">{message}</div>
           ))}
       </div>
       
