@@ -24,8 +24,10 @@ export default function Home() {
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
   const messageListRef = useRef<HTMLDivElement>(null);
+  
   const handleSendMessage = () => {
     socket.emit("message",message, roomName)
+    setMessage(""); 
   }
   
   const handleJoinRoom= () => {
