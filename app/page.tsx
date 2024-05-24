@@ -30,10 +30,10 @@ export default function Home() {
     setMessage(""); 
   }
   
-  const handleJoinRoom= () => {
-    socket.emit("joinRoom", roomName)
-    setJoined(true); 
-  }
+  const handleJoinRoom = (roomName: string) => {
+    socket.emit("joinRoom", roomName);
+    setJoined(true);
+  };
 
   const handleMakeMove = (index: number) => {
     socket.emit("makeMove", index, roomName);
@@ -183,17 +183,14 @@ export default function Home() {
         <button className="w-40" onClick={handleSendMessage}>Send Chat</button>
       </div>
       
-      <div className="flex gap-2 align-center justify-center">
-        <input 
-        onChange={(e) => {
-          setRoomName(e.target.value)
-        }} onKeyPress={(e) => { 
-          if (e.key === 'Enter') {
-            handleJoinRoom();
-          }
-        }} type="text" name="room" placeholder="Type room1 and press enter (room1, room2...etc)" className="flex-1 bg-black border rounded px-2 py-1"/>
-        <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
-      </div>
+      <div className="flex flex-col items-center">
+            <Image src={logo} alt="logo" />
+            <div className="mt-4 flex gap-4"> 
+              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room1")}>Room 1</button>
+              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room2")}>Room 2</button>
+              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room3")}>Room 3</button>
+            </div>
+          </div>
       
       <Link href="https://github.com/nowaveosu" target="_blank">
         <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'> created by nowaveosu <Image src={github_icon} alt="github icon" className='w-6 ml-1' /></div>
