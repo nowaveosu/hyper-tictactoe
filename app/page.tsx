@@ -76,10 +76,10 @@ export default function Home() {
     );
   };
   
-  useEffect(() => {
-    const socket = io("../api/socket");
-    setSocket(socket);
-  }, []);
+  useEffect(() =>{
+    const socket = io('http://localhost:3000')
+    setSocket(socket)
+  },[])
 
   useEffect(() => {
     if (socket) {
