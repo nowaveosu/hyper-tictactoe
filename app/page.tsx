@@ -77,7 +77,7 @@ export default function Home() {
   };
   
   useEffect(() =>{
-    const socket = io('http://localhost:3000')
+    const socket = io('https://port-0-hypertictactoe-server-1272llwkmw9kv.sel5.cloudtype.app/')
     setSocket(socket)
   },[])
 
