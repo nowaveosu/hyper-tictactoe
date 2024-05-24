@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { io } from "socket.io-client";
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,7 +23,7 @@ export default function Home() {
   const [rpsChoice, setRpsChoice] = useState(""); 
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
-
+  const messageListRef = useRef<HTMLDivElement>(null);
   const handleSendMessage = () => {
     socket.emit("message",message, roomName)
   }
@@ -80,6 +80,12 @@ export default function Home() {
     const socket = io('https://port-0-hypertictactoe-server-1272llwkmw9kv.sel5.cloudtype.app/')
     setSocket(socket)
   },[])
+
+  useEffect(() => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [inbox]);
 
   useEffect(() => {
     if (socket) {
@@ -156,9 +162,9 @@ export default function Home() {
         </div>
       )}
 
-      <div className="flex flex-col gap-2 border rounded-lg p-10 max-h-[180px] overflow-y-auto"> 
+      <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 max-h-[180px] overflow-y-auto"> 
           {inbox.map((message: string, index: number) => (
-              <div key={index} className="border rounded px-4 py-2 mb-3 bg-zinc-900">{message}</div>
+              <div key={index} className="border rounded px-4 py-2 mb-2 bg-zinc-900">{message}</div>
           ))}
       </div>
       
