@@ -77,7 +77,7 @@ export default function Home() {
   };
   
   useEffect(() => {
-    const socket = io("https://hyper-tictactoe.com"); 
+    const socket = io("../api/socket");
     setSocket(socket);
   }, []);
 
