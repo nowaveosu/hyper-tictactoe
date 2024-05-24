@@ -146,7 +146,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="flex justify-center"> 
-              <p>Waiting for another user...</p>
+              <p>Waiting for another 1 user...</p>
             </div>
           )
         )
