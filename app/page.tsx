@@ -24,7 +24,7 @@ export default function Home() {
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
   const messageListRef = useRef<HTMLDivElement>(null);
-  
+
   const handleSendMessage = () => {
     socket.emit("message",message, roomName)
     setMessage(""); 
@@ -171,7 +171,9 @@ export default function Home() {
       </div>
       
       <div className="flex gap-2 align-center justify-center">
-        <input onChange={(e) => {
+        <input 
+        value={message}
+        onChange={(e) => {
           setMessage(e.target.value)
         }} onKeyPress={(e) => { 
           if (e.key === 'Enter') {
@@ -182,7 +184,8 @@ export default function Home() {
       </div>
       
       <div className="flex gap-2 align-center justify-center">
-        <input onChange={(e) => {
+        <input 
+        onChange={(e) => {
           setRoomName(e.target.value)
         }} onKeyPress={(e) => { 
           if (e.key === 'Enter') {
