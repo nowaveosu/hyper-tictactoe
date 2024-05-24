@@ -30,7 +30,7 @@ export default function Home() {
     setMessage(""); 
   }
   
-  const handleJoinRoom = (roomName: string) => {
+  const handleJoinRoom = () => {
     socket.emit("joinRoom", roomName);
     setJoined(true);
   };
@@ -106,7 +106,7 @@ export default function Home() {
         });
         
         socket.on("gameState", (newGameState: any) => {
-
+          console.log("Client - received oldestIndex:", newGameState.oldestIndex);  
           setGameState((prevGameState:any) => ({
               ...prevGameState,
               ...newGameState,
@@ -161,12 +161,18 @@ export default function Home() {
       ) : (
         <div className="flex justify-center">
           <Image src={logo} alt="logo" />
-            <div className="mt-4 flex gap-4"> 
-              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room1")}>Room 1</button>
-              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room2")}>Room 2</button>
-              <button className="w-24 border-solid" onClick={() => handleJoinRoom("Room3")}>Room 3</button>
+          <div className="mt-4 flex gap-4"> 
+              <button className="w-24" onClick={() => {
+                setRoomName("room1");
+                handleJoinRoom();
+              }}>Room 1</button>
+              <button className="w-24" onClick={() => {
+                setRoomName("room2");
+                handleJoinRoom();
+              }}>Room 2</button>
             </div>
         </div>
+        
       )}
 
       <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 max-h-[180px] overflow-y-auto"> 
@@ -188,10 +194,20 @@ export default function Home() {
         <button className="w-40" onClick={handleSendMessage}>Send Chat</button>
       </div>
       
-
+      <div className="flex gap-2 align-center justify-center">
+        <input 
+        onChange={(e) => {
+          setRoomName(e.target.value)
+        }} onKeyPress={(e) => { 
+          if (e.key === 'Enter') {
+            handleJoinRoom();
+          }
+        }} type="text" name="room" placeholder="Type room1 and press enter (room1, room2...etc)" className="flex-1 bg-black border rounded px-2 py-1"/>
+        <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
+      </div>
       
       <Link href="https://github.com/nowaveosu" target="_blank">
-        <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'> created by nowaveosu <Image src={github_icon} alt="github icon" className='w-6 ml-1' /></div>
+        <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'> created by nowaveosu <Image src={github_icon} alt="github icon" className='w-5 ml-1' /></div>
       </Link>
       
     </div>
