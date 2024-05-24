@@ -196,7 +196,7 @@ export default function Home() {
       </div>
       
       <Link href="https://github.com/nowaveosu" target="_blank">
-        <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'> created by nowaveosu <Image src={github_icon} alt="github icon" className='w-5 ml-1' /></div>
+        <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'> created by nowaveosu <Image src={github_icon} alt="github icon" className='w-6 ml-1' /></div>
       </Link>
       
     </div>
