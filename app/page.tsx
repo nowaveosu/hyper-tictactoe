@@ -131,7 +131,7 @@ export default function Home() {
         ) : (
           gameState && gameState.players.length === 2 ? ( 
             <div>
-              <div className='flex justify-center w-full text-xl mb-6'> Choose one </div>
+              <div className='flex justify-center w-full text-xl mb-6'> Rock paper scissors to decide the first! </div>
               <div className="flex gap-2 align-center justify-center"> 
                 <button onClick={() => handlePlayRPS("rock")}>
                   <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
@@ -146,7 +146,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="flex justify-center"> 
-              <p>Waiting for another user....</p>
+              <p>Waiting for another user...</p>
             </div>
           )
         )
@@ -170,7 +170,7 @@ export default function Home() {
             handleSendMessage();
           }
         }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1"/>
-        <button className="w-40" onClick={handleSendMessage}>Send message</button>
+        <button className="w-40" onClick={handleSendMessage}>Send Chat</button>
       </div>
       
       <div className="flex gap-2 align-center justify-center">
