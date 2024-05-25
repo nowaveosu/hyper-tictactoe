@@ -183,13 +183,13 @@ export default function Home() {
             <Image src={logo} alt="logo" />
             <div className="mt-4 flex gap-4">
               <button className="w-24" onClick={() => handleJoinRoom("room1")}>
-                Room 1 <span className="text-xs">({initialRoomCounts.room1}/2)</span> 
+                Room 1 <span className="text-xs">({0+initialRoomCounts.room1}/2)</span> 
               </button>
               <button className="w-24" onClick={() => handleJoinRoom("room2")}>
-                Room 2 <span className="text-xs">({initialRoomCounts.room2}/2)</span>
+                Room 2 <span className="text-xs">({0+initialRoomCounts.room2}/2)</span>
               </button>
               <button className="w-24" onClick={() => handleJoinRoom("room3")}>
-                Room 3 <span className="text-xs">({initialRoomCounts.room3}/2)</span>
+                Room 3 <span className="text-xs">({0+initialRoomCounts.room3}/2)</span>
               </button>
             </div>
           </div>
