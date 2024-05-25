@@ -223,7 +223,7 @@ export default function Home() {
           ))}
       </div>
       
-      <div className="flex gap-2 align-center justify-center">
+      <div className="flex flex-col gap-2 align-center justify-center">
         <input 
         value={message}
         onChange={(e) => {
@@ -232,7 +232,7 @@ export default function Home() {
           if (e.key === 'Enter') {
             handleSendMessage();
           }
-        }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1 sm:w-60"/>
+        }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1"/>
         <button className="w-40" onClick={handleSendMessage}>Send Chat</button>
       </div>
     
