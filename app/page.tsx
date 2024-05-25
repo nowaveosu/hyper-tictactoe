@@ -174,7 +174,6 @@ export default function Home() {
           ) : (
             <div className="flex justify-center"> 
               <p>Waiting for opponent...</p>
-              {roomName} 
             </div>
           )
         )
