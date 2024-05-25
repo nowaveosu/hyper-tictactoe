@@ -33,6 +33,7 @@ export default function Home() {
   const handleJoinRoom= () => {
     socket.emit("joinRoom", roomName)
     setJoined(true); 
+    setRpsChoice("");
   }
 
   const handleMakeMove = (index: number) => {
@@ -53,14 +54,7 @@ export default function Home() {
     setRpsChoice("");  
   };
 
-  const handleJoinRoom1 = () => {
-    const newRoomName = roomName + "Room1";
-    setRoomName(newRoomName);
-    socket.emit("joinRoom", newRoomName);
-    setJoined(true);
-    setShowRematchButton(false);
-    setRpsChoice("");  
-  };
+
   
   const renderCell = (cell: string, cellIndex: number) => {
     const currentPlayer = gameState.players[gameState.turn % 2];
@@ -138,7 +132,7 @@ export default function Home() {
                   {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
               </div>
               <div className="grid grid-cols-4 gap-0">
-                  {gameState.rpsResult} 
+                  {roomName} 
               </div>
               {showRematchButton && (  
                   <div className="flex justify-center">
@@ -162,11 +156,13 @@ export default function Home() {
                 <button onClick={() => handlePlayRPS("scissors")}>
                   <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
                 </button>
+                {roomName} 
               </div>
             </div>
           ) : (
             <div className="flex justify-center"> 
               <p>Waiting for opponent...</p>
+              {roomName} 
             </div>
           )
         )
@@ -207,8 +203,14 @@ export default function Home() {
         <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
         <button className="w-40" 
         onClick={() => {
-          handleJoinRoom1();
+          setRoomName("Room1");
+          handleJoinRoom();
         }}>Join Room1</button>
+        <button className="w-40" 
+        onClick={() => {
+          setRoomName("Room2");
+          handleJoinRoom();
+        }}>Join Room2</button>
       </div>
       
       <Link href="https://github.com/nowaveosu" target="_blank">
