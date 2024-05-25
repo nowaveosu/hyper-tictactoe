@@ -156,7 +156,7 @@ export default function Home() {
             {gameState.players[gameState.turn % 2] === socket.id ? (
                   <>** 🤡 Your turn for {turnTimeLeft} seconds **</>
                 ) : (
-                  <>** 👺 Enemy's turn for {turnTimeLeft} seconds **</> 
+                  <>👺 Enemy's turn</>
                 )}
             </div>
               <div className="grid grid-cols-4 gap-0">
