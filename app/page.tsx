@@ -16,7 +16,7 @@ import github_icon from "../public/github_icon.png"
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
-  const [inbox, setInbox] = useState<string[]>(["Rule: dark piece will be disappear, Go Room and Fill 4-in-row first!"])
+  const [inbox, setInbox] = useState<string[]>(["Rule: dark piece will disappear, Go Room and Fill 4-in-row first!"])
   const [message, setMessage] = useState("")
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
@@ -179,7 +179,7 @@ export default function Home() {
       ) : (
         <div className="flex flex-col items-center">
             <Image src={logo} alt="logo" />
-            <div className="mt-4 flex gap-4">
+            <div className="mt-4 mb-5 flex gap-4">
               <button className="w-24" onClick={() => handleJoinRoom("room1")}>
                 Room 1 <span className="text-xs">({roomCounts.room1 ? roomCounts.room1 : 0}/2)</span> 
               </button>
