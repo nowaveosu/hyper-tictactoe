@@ -24,6 +24,11 @@ export default function Home() {
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
   const messageListRef = useRef<HTMLDivElement>(null);
+  const [roomCounts, setRoomCounts] = useState({ 
+    room1: 0,
+    room2: 0,
+    room3: 0,
+  });
 
   const handleSendMessage = () => {
     socket.emit("message",message, roomName)
@@ -117,9 +122,21 @@ export default function Home() {
               ...newGameState,
               oldestIndex: newGameState.oldestIndex
           }));
-      });
+        });
+
+        socket.on("roomCountUpdate", (roomName: string, count: number) => {
+          setRoomCounts(prevCounts => ({
+            ...prevCounts,
+            [roomName]: count,
+          }));
+        });
     }
 }, [socket]);
+  useEffect(() => {
+    if (socket && joined) {
+      socket.emit("updateRoomCount", roomName); 
+    }
+  }, [socket, joined, roomName]);
 
   return (
     <div>
@@ -134,7 +151,6 @@ export default function Home() {
                   {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
               </div>
               <div className="grid grid-cols-4 gap-0">
-                  {roomName} 
               </div>
               {showRematchButton && (  
                   <div className="flex justify-center">
@@ -158,7 +174,6 @@ export default function Home() {
                 <button onClick={() => handlePlayRPS("scissors")}>
                   <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
                 </button>
-                {roomName} 
               </div>
             </div>
           ) : (
@@ -169,9 +184,20 @@ export default function Home() {
           )
         )
       ) : (
-        <div className="flex justify-center">
-          <Image src={logo} alt="logo" />
-        </div>
+        <div className="flex flex-col items-center">
+            <Image src={logo} alt="logo" />
+            <div className="mt-4 flex gap-4">
+              <button className="w-24" onClick={() => handleJoinRoom("room1")}>
+                Room 1 <span className="text-xs">({roomCounts.room1}/2)</span> 
+              </button>
+              <button className="w-24" onClick={() => handleJoinRoom("room2")}>
+                Room 2 <span className="text-xs">({roomCounts.room2}/2)</span>
+              </button>
+              <button className="w-24" onClick={() => handleJoinRoom("room3")}>
+                Room 3 <span className="text-xs">({roomCounts.room3}/2)</span>
+              </button>
+            </div>
+          </div>
       )}
 
       <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 max-h-[180px] overflow-y-auto"> 
@@ -192,21 +218,7 @@ export default function Home() {
         }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1"/>
         <button className="w-40" onClick={handleSendMessage}>Send Chat</button>
       </div>
-      
-      <div className="flex gap-2 align-center justify-center">
-        <button className="w-40" 
-        onClick={() => {
-          handleJoinRoom("1");
-        }}>Join Room1</button>
-        <button className="w-40" 
-        onClick={() => {
-          handleJoinRoom("2");
-        }}>Join Room2</button>
-        <button className="w-40" 
-        onClick={() => {
-          handleJoinRoom("3");
-        }}>Join Room3</button>
-      </div>
+    
       
       <Link href="https://github.com/nowaveosu" target="_blank">
         <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'> created by nowaveosu <Image src={github_icon} alt="github icon" className='w-6 ml-1' /></div>
