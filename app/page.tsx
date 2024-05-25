@@ -67,20 +67,18 @@ export default function Home() {
     const currentPlayer = gameState.players[gameState.turn % 2];
     const isCurrentPlayer = currentPlayer === socket.id;
 
-    const currentPlayerSymbol = currentPlayer === gameState.players[0] ? "X" : "O";
-    const currentSymbolQueue = gameState.playerSymbolQueues[currentPlayerSymbol];
+    const oldestXIndex = gameState.playerSymbolQueues["X"].length >= 4 ? gameState.playerSymbolQueues["X"][0] : null;
+    const oldestOIndex = gameState.playerSymbolQueues["O"].length >= 4 ? gameState.playerSymbolQueues["O"][0] : null;
 
-    const oldestIndices = currentSymbolQueue.length >= 4 ? currentSymbolQueue.slice(0, 2) : [];
-
-    const isOldest = oldestIndices.includes(cellIndex); 
+    const isOldestX = oldestXIndex === cellIndex && cell === "X"; 
+    const isOldestO = oldestOIndex === cellIndex && cell === "O"; 
 
     return (
       <div
         key={cellIndex}
         className={`border text-4xl px-4 py-2 w-16 h-16 flex items-center justify-center ${
-          cell === "X" ? (isOldest ? "text-orange-800" : "text-orange-400") 
-            : cell === "O" ? (isOldest ? "text-blue-800" : "text-blue-400")
-            : ""
+          isOldestX ? "text-orange-800" : isOldestO ? "text-blue-800" : 
+            cell === "X" ? "text-orange-400" : cell === "O" ? "text-blue-400" : ""
         }`}
         onClick={() => handleMakeMove(cellIndex)}
       >
