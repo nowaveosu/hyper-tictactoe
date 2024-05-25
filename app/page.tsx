@@ -128,6 +128,9 @@ export default function Home() {
               <div className="grid grid-cols-4 gap-0">
                   {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
               </div>
+              <div className="grid grid-cols-4 gap-0">
+                  {gameState.rpsResult} 
+              </div>
               {showRematchButton && (  
                   <div className="flex justify-center">
                       <button className="w-40" onClick={handleRematch}>Rematch</button>
@@ -193,6 +196,11 @@ export default function Home() {
           }
         }} type="text" name="room" placeholder="Type room1 and press enter (room1, room2...etc)" className="flex-1 bg-black border rounded px-2 py-1"/>
         <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
+        <button className="w-40" 
+        onClick={() => {
+          setRoomName("Room1");
+          handleJoinRoom;
+        }}>Join Room1</button>
       </div>
       
       <Link href="https://github.com/nowaveosu" target="_blank">
