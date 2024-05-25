@@ -17,7 +17,7 @@ import github_icon from "../public/github_icon.png"
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
   const [inbox, setInbox] = useState<string[]>([])
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("dark piece will be disappear, fill 4-in-row first!")
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
   const [rpsChoice, setRpsChoice] = useState(""); 
