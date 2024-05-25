@@ -69,9 +69,10 @@ export default function Home() {
 
     const currentPlayerSymbol = currentPlayer === gameState.players[0] ? "X" : "O";
     const currentSymbolQueue = gameState.playerSymbolQueues[currentPlayerSymbol];
-    const currentOldestIndex = currentSymbolQueue.length >= 4 ? currentSymbolQueue[0] : null;
 
-    const isOldest = currentOldestIndex === cellIndex; 
+    const oldestIndices = currentSymbolQueue.length >= 4 ? currentSymbolQueue.slice(0, 2) : [];
+
+    const isOldest = oldestIndices.includes(cellIndex); 
 
     return (
       <div
