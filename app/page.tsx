@@ -178,7 +178,7 @@ export default function Home() {
         )
       ) : (
         <div className="flex flex-col items-center">
-            <Image src={logo} alt="logo" />
+            <Image className="max-w-screen-xl" src={logo} alt="logo" />
             <div className="mt-4 mb-4 flex gap-4">
               <button className="w-24" onClick={() => handleJoinRoom("room1")}>
                 Room 1 <span className="text-xs">({roomCounts.room1 ? roomCounts.room1 : 0}/2)</span> 
