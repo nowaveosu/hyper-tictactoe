@@ -24,7 +24,7 @@ export default function Home() {
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
   const messageListRef = useRef<HTMLDivElement>(null);
-  const [roomCounts, setRoomCounts] = useState({ 
+  const [initialRoomCounts, setInitialRoomCounts] = useState({
     room1: 0,
     room2: 0,
     room3: 0,
@@ -90,7 +90,12 @@ export default function Home() {
   
   useEffect(() =>{
     const socket = io('https://port-0-hypertictactoe-server-1272llwkmw9kv.sel5.cloudtype.app/')
-    setSocket(socket)
+    setSocket(socket);
+    socket.emit("getInitialRoomCounts");
+
+    socket.on("initialRoomCounts", (counts: any) => {
+      setInitialRoomCounts(counts);
+    });
   },[])
 
   useEffect(() => {
@@ -124,19 +129,9 @@ export default function Home() {
           }));
         });
 
-        socket.on("roomCountUpdate", (roomName: string, count: number) => {
-          setRoomCounts(prevCounts => ({
-            ...prevCounts,
-            [roomName]: count,
-          }));
-        });
     }
 }, [socket]);
-  useEffect(() => {
-    if (socket && joined) {
-      socket.emit("updateRoomCount", roomName); 
-    }
-  }, [socket, joined, roomName]);
+
 
   return (
     <div>
@@ -188,13 +183,13 @@ export default function Home() {
             <Image src={logo} alt="logo" />
             <div className="mt-4 flex gap-4">
               <button className="w-24" onClick={() => handleJoinRoom("room1")}>
-                Room 1 <span className="text-xs">({roomCounts.room1}/2)</span> 
+                Room 1 <span className="text-xs">({initialRoomCounts.room1}/2)</span> 
               </button>
               <button className="w-24" onClick={() => handleJoinRoom("room2")}>
-                Room 2 <span className="text-xs">({roomCounts.room2}/2)</span>
+                Room 2 <span className="text-xs">({initialRoomCounts.room2}/2)</span>
               </button>
               <button className="w-24" onClick={() => handleJoinRoom("room3")}>
-                Room 3 <span className="text-xs">({roomCounts.room3}/2)</span>
+                Room 3 <span className="text-xs">({initialRoomCounts.room3}/2)</span>
               </button>
             </div>
           </div>
