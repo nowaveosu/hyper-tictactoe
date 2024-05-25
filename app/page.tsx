@@ -30,11 +30,14 @@ export default function Home() {
     setMessage(""); 
   }
   
-  const handleJoinRoom= () => {
-    socket.emit("joinRoom", roomName)
-    setJoined(true); 
-    setRpsChoice("");
-  }
+  const handleJoinRoom= (roomIndex: string) => {
+    const newRoomName = roomName + roomIndex;
+    setRoomName(newRoomName);
+    socket.emit("joinRoom", newRoomName);
+    setJoined(true);
+    setShowRematchButton(false);
+    setRpsChoice("");  
+  };
 
   const handleMakeMove = (index: number) => {
     socket.emit("makeMove", index, roomName);
@@ -47,14 +50,6 @@ export default function Home() {
 
   const handleRematch = () => {
     const newRoomName = roomName + "-re";
-    setRoomName(newRoomName);
-    socket.emit("joinRoom", newRoomName);
-    setJoined(true);
-    setShowRematchButton(false);
-    setRpsChoice("");  
-  };
-  const handleJoinRoomButton = (roomIndex: string) => {
-    const newRoomName = roomName + roomIndex;
     setRoomName(newRoomName);
     socket.emit("joinRoom", newRoomName);
     setJoined(true);
@@ -199,23 +194,18 @@ export default function Home() {
       </div>
       
       <div className="flex gap-2 align-center justify-center">
-        <input 
-        onChange={(e) => {
-          setRoomName(e.target.value)
-        }} onKeyPress={(e) => { 
-          if (e.key === 'Enter') {
-            handleJoinRoom();
-          }
-        }} type="text" name="room" placeholder="Type room1 and press enter (room1, room2...etc)" className="flex-1 bg-black border rounded px-2 py-1"/>
-        <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
         <button className="w-40" 
         onClick={() => {
-          handleJoinRoomButton("1");
+          handleJoinRoom("1");
         }}>Join Room1</button>
         <button className="w-40" 
         onClick={() => {
-          handleJoinRoomButton("2");
+          handleJoinRoom("2");
         }}>Join Room2</button>
+        <button className="w-40" 
+        onClick={() => {
+          handleJoinRoom("3");
+        }}>Join Room3</button>
       </div>
       
       <Link href="https://github.com/nowaveosu" target="_blank">
