@@ -17,7 +17,7 @@ import home_icon from "../public/home.png"
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
-  const [inbox, setInbox] = useState<string[]>(["Rule: dark piece will disappear, Go Room and Fill 4-in-row First!", "You can chat here!"])
+  const [inbox, setInbox] = useState<string[]>(["Rule : dark piece will disappear, Go Room and Fill 4-in-row First!", "You can chat here!"])
   const [message, setMessage] = useState("")
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
@@ -153,6 +153,7 @@ export default function Home() {
       {joined ? ( 
         gameState && gameState.rpsResult ? ( 
           <div className='flex flex-wrap justify-center'>
+            <Image src={home_icon} alt="home icon" className='absolute top-4 left-5 w-6 ml-1' onClick={() => window.location.reload()}/>
             <div className='w-full text-center text-lg mb-4'>
             {gameState.players[gameState.turn % 2] === socket.id ? (
                   <>** 🤡 Your turn for {turnTimeLeft} seconds **</>
@@ -191,8 +192,11 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div className="flex justify-center"> 
-              <p>Waiting for opponent...</p>
+            <div>
+              <Image src={home_icon} alt="home icon" className='absolute top-4 left-5 w-6 ml-1' onClick={() => window.location.reload()}/>
+              <div className="flex justify-center"> 
+                <p>Waiting for opponent...</p>
+              </div>
             </div>
           )
         )
