@@ -13,6 +13,7 @@ import rock_checked from "../public/rock_checked.png";
 import paper_checked from "../public/paper_checked.png";
 import scissors_checked from "../public/scissors_checked.png";
 import github_icon from "../public/github_icon.png"
+import home_icon from "../public/home.png"
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
@@ -175,6 +176,7 @@ export default function Home() {
         ) : (
           gameState && gameState.players.length === 2 ? ( 
             <div>
+              <Image src={home_icon} alt="home icon" className='absolute top-4 left-5 w-6 ml-1' onClick={() => window.location.reload()}/>
               <div className='flex justify-center w-full text-xl mb-6'> Rock paper scissors to decide the first! </div>
               <div className="flex gap-2 align-center justify-center"> 
                 <button onClick={() => handlePlayRPS("rock")}>
@@ -196,7 +198,7 @@ export default function Home() {
         )
       ) : (
         <div className="flex flex-col items-center">
-            <Image className="lg:max-w-4xl md:max-w-xl sm:max-w-md" src={logo} alt="logo" />
+            <Image className="lg:max-w-4xl md:max-w-xl sm:max-w-md" src={logo} alt="logo" onClick={() => window.location.reload()} />
             <div className="mt-4 mb-4 flex gap-4">
               <button className="w-24" onClick={() => handleJoinRoom("room1")}>
                 Room 1 <span className="text-xs">({roomCounts.room1 ? roomCounts.room1 : 0}/2)</span> 
