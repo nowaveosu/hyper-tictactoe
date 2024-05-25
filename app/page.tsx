@@ -168,7 +168,7 @@ export default function Home() {
               </div>
               {showRematchButton && (  
                   <div className="flex justify-center">
-                      <button className="w-40" onClick={handleRematch}>Rematch</button>
+                      <button className="w-40 h-20" onClick={handleRematch}>Rematch</button>
                   </div>
               )}
           </div>
@@ -232,7 +232,7 @@ export default function Home() {
           if (e.key === 'Enter') {
             handleSendMessage();
           }
-        }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1"/>
+        }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1 sm:w-60"/>
         <button className="w-40" onClick={handleSendMessage}>Send Chat</button>
       </div>
     
