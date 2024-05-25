@@ -16,7 +16,7 @@ import github_icon from "../public/github_icon.png"
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
-  const [inbox, setInbox] = useState<string[]>(["Rule: dark piece will disappear, Go Room and Fill 4-in-row first!"])
+  const [inbox, setInbox] = useState<string[]>(["Rule: dark piece will disappear, Go Room and Fill 4-in-row First!", "You can chat here!"])
   const [message, setMessage] = useState("")
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
