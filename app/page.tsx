@@ -223,7 +223,7 @@ export default function Home() {
           ))}
       </div>
       
-      <div className="flex flex-col gap-2 align-center justify-center">
+      <div className="flex gap-2 align-center justify-center">
         <input 
         value={message}
         onChange={(e) => {
