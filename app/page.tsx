@@ -168,7 +168,7 @@ export default function Home() {
               </div>
               {showRematchButton && (  
                   <div className="flex justify-center">
-                      <button className="w-40 h-20" onClick={handleRematch}>Rematch</button>
+                      <button className="w-40 mt-4" onClick={handleRematch}>Rematch</button>
                   </div>
               )}
           </div>
