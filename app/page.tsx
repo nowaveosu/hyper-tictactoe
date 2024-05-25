@@ -52,6 +52,15 @@ export default function Home() {
     setShowRematchButton(false);
     setRpsChoice("");  
   };
+
+  const handleJoinRoom1 = () => {
+    const newRoomName = roomName + "Room1";
+    setRoomName(newRoomName);
+    socket.emit("joinRoom", newRoomName);
+    setJoined(true);
+    setShowRematchButton(false);
+    setRpsChoice("");  
+  };
   
   const renderCell = (cell: string, cellIndex: number) => {
     const currentPlayer = gameState.players[gameState.turn % 2];
@@ -198,8 +207,7 @@ export default function Home() {
         <button className="w-40" onClick={handleJoinRoom}>Join Room</button>
         <button className="w-40" 
         onClick={() => {
-          setRoomName("Room1");
-          handleJoinRoom();
+          handleJoinRoom1();
         }}>Join Room1</button>
       </div>
       
