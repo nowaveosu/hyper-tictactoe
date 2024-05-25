@@ -199,7 +199,7 @@ export default function Home() {
         <button className="w-40" 
         onClick={() => {
           setRoomName("Room1");
-          handleJoinRoom;
+          handleJoinRoom();
         }}>Join Room1</button>
       </div>
       
