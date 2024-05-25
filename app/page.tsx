@@ -24,6 +24,7 @@ export default function Home() {
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
   const messageListRef = useRef<HTMLDivElement>(null);
+  const [turnTimeLeft, setTurnTimeLeft] = useState<number>(4);
   const [roomCounts, setRoomCounts] = useState({
     room1: 0,
     room2: 0,
@@ -61,6 +62,8 @@ export default function Home() {
     setShowRematchButton(false);
     setRpsChoice("");  
   };
+
+  
 
   
   const renderCell = (cell: string, cellIndex: number) => {
@@ -129,7 +132,18 @@ export default function Home() {
         });
 
     }
-}, [socket]);
+  }, [socket]);
+
+  useEffect(() => {
+    if (gameState && gameState.players[gameState.turn % 2] === socket.id) {
+      setTurnTimeLeft(4); 
+      const timerInterval = setInterval(() => {
+        setTurnTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0)); 
+      }, 1000);
+
+      return () => clearInterval(timerInterval); 
+    }
+  }, [gameState]);
 
 
   return (
@@ -139,7 +153,11 @@ export default function Home() {
         gameState && gameState.rpsResult ? ( 
           <div className='flex flex-wrap justify-center'>
             <div className='w-full text-center text-lg mb-4'>
-              {gameState.players[gameState.turn % 2] === socket.id ? "** 🤡 Your turn **" : "👺 Enemy's turn"}
+            {gameState.players[gameState.turn % 2] === socket.id ? (
+                  <>** 🤡 Your turn for {turnTimeLeft} seconds **</>
+                ) : (
+                  <>** 👺 Enemy's turn for {turnTimeLeft} seconds **</> 
+                )}
             </div>
               <div className="grid grid-cols-4 gap-0">
                   {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
