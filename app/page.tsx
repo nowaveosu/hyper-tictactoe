@@ -24,7 +24,7 @@ export default function Home() {
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
   const messageListRef = useRef<HTMLDivElement>(null);
-  const [initialRoomCounts, setInitialRoomCounts] = useState({
+  const [roomCounts, setRoomCounts] = useState({
     room1: 0,
     room2: 0,
     room3: 0,
@@ -91,10 +91,10 @@ export default function Home() {
   useEffect(() =>{
     const socket = io('https://port-0-hypertictactoe-server-1272llwkmw9kv.sel5.cloudtype.app/')
     setSocket(socket);
-    socket.emit("getInitialRoomCounts");
+    socket.emit("getRoomCounts");
 
-    socket.on("initialRoomCounts", (counts: any) => {
-      setInitialRoomCounts(counts);
+    socket.on("roomCounts", (Counts: any) => {
+      setRoomCounts(Counts);
     });
   },[])
 
@@ -183,13 +183,13 @@ export default function Home() {
             <Image src={logo} alt="logo" />
             <div className="mt-4 flex gap-4">
               <button className="w-24" onClick={() => handleJoinRoom("room1")}>
-                Room 1 <span className="text-xs">({0+initialRoomCounts.room1}/2)</span> 
+                Room 1 <span className="text-xs">({roomCounts.room1 ? roomCounts.room1 : 0}/2)</span> 
               </button>
               <button className="w-24" onClick={() => handleJoinRoom("room2")}>
-                Room 2 <span className="text-xs">({0+initialRoomCounts.room2}/2)</span>
+                Room 2 <span className="text-xs">({roomCounts.room2 ? roomCounts.room2 : 0}/2)</span>
               </button>
               <button className="w-24" onClick={() => handleJoinRoom("room3")}>
-                Room 3 <span className="text-xs">({0+initialRoomCounts.room3}/2)</span>
+                Room 3 <span className="text-xs">({roomCounts.room3 ? roomCounts.room3 : 0}/2)</span>
               </button>
             </div>
           </div>
