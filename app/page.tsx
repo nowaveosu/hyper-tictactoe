@@ -17,7 +17,7 @@ import home_icon from "../public/home.png"
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
-  const [inbox, setInbox] = useState<string[]>(["Rule : dark piece will disappear, Go Room and Fill 4-in-row First!", "You can chat here!"])
+  const [inbox, setInbox] = useState<string[]>(["Rule : dark piece will disappear, Go Room and Fill 4-in-row first!", "You can chat here!"])
   const [message, setMessage] = useState("")
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
