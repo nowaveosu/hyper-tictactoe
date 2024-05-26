@@ -155,8 +155,12 @@ export default function Home() {
           <div className='flex flex-wrap justify-center'>
             <Image src={home_icon} alt="home icon" className='absolute top-4 left-5 w-6 ml-1' onClick={() => window.location.reload()}/>
             <div className='w-full text-center text-lg mb-4'>
-            {gameState.players[gameState.turn % 2] === socket.id ? (
-                  <>** 🤡 Your turn for {turnTimeLeft} seconds **</>
+            {gameState.players[gameState.turn % 2] === socket.id ? ( 
+                  turnTimeLeft > 0 ? ( 
+                    <>** 🤡 Your turn for {turnTimeLeft} seconds **</>
+                  ) : (
+                    <>** 🤡 It's Your turn, Hurry up! **</>
+                  )
                 ) : (
                   <>👺 Enemy's turn</>
                 )}
