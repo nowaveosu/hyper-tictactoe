@@ -81,7 +81,7 @@ export default function Home() {
       <div
         key={cellIndex}
         className={`border text-4xl px-4 py-2 w-16 h-16 flex items-center justify-center ${
-          isOldestX ? "text-orange-800 animate-custom-pulse" : isOldestO ? "text-blue-800 animate-custom-pulse" : 
+          isOldestX ? "text-orange-600 animate-custom-pulse" : isOldestO ? "text-blue-600 animate-custom-pulse" : 
             cell === "X" ? "text-orange-400" : cell === "O" ? "text-blue-400" : ""
         }`}
         onClick={() => handleMakeMove(cellIndex)}
