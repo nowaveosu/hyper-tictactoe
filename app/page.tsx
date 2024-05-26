@@ -94,6 +94,11 @@ export default function Home() {
   useEffect(() =>{
     const socket = io('https://port-0-hypertictactoe-server-1272llwkmw9kv.sel5.cloudtype.app/')
     setSocket(socket);
+    socket.emit("getRoomCounts");
+
+    socket.on("roomCounts", (Counts: any) => {
+      setRoomCounts(Counts);
+    });
   },[])
 
   useEffect(() => {
@@ -104,12 +109,6 @@ export default function Home() {
 
   useEffect(() => {
     if (socket) {
-        socket.emit("getRoomCounts");
-
-        socket.on("roomCounts", (Counts: any) => {
-          setRoomCounts(Counts);
-        });
-        
         socket.on("message", (message: string) => {
             setInbox((prevInbox) => [...prevInbox, message]);
             if (message === "** You win! **") {
