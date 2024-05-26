@@ -25,7 +25,7 @@ body {
   }
 
     .animate-custom-pulse { 
-    animation: custom-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: custom-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   @keyframes custom-pulse {
@@ -33,7 +33,7 @@ body {
       opacity: 1;
     }
     50% {
-      opacity: 0.9;
+      opacity: 0.85;
     }
   }
 
