@@ -159,7 +159,7 @@ export default function Home() {
                   turnTimeLeft > 0 ? ( 
                     <>** 🤡 Your turn for {turnTimeLeft} seconds **</>
                   ) : (
-                    <>** 🤡 It's Your turn, Hurry up! **</>
+                    <>** 😱 It's Your turn, Hurry up! **</>
                   )
                 ) : (
                   <>👺 Enemy's turn</>
