@@ -157,9 +157,9 @@ export default function Home() {
             <div className='w-full text-center text-lg mb-4'>
             {gameState.players[gameState.turn % 2] === socket.id ? ( 
                   turnTimeLeft > 0 ? ( 
-                    <>** 🤡 Your turn for {turnTimeLeft} seconds **</>
+                    <>🤡 Your turn for {turnTimeLeft} seconds</>
                   ) : (
-                    <>** 😱 It's Your turn, Hurry up! **</>
+                    <>😱 It's Your turn, Hurry up!</>
                   )
                 ) : (
                   <>👺 Enemy's turn</>
