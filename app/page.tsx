@@ -25,7 +25,7 @@ export default function Home() {
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
   const messageListRef = useRef<HTMLDivElement>(null);
-  const [turnTimeLeft, setTurnTimeLeft] = useState<number>(4);
+  const [turnTimeLeft, setTurnTimeLeft] = useState<number>(9);
   const [roomCounts, setRoomCounts] = useState({
     room1: 0,
     room2: 0,
@@ -137,7 +137,7 @@ export default function Home() {
 
   useEffect(() => {
     if (gameState && gameState.players[gameState.turn % 2] === socket.id) {
-      setTurnTimeLeft(4); 
+      setTurnTimeLeft(9); 
       const timerInterval = setInterval(() => {
         setTurnTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0)); 
       }, 1000);
@@ -157,9 +157,9 @@ export default function Home() {
             <div className='w-full text-center text-lg mb-4'>
             {gameState.players[gameState.turn % 2] === socket.id ? ( 
                   turnTimeLeft > 0 ? ( 
-                    <>🤡 Your turn for {turnTimeLeft} seconds</>
+                    <>🤡 {gameState.players[0] === socket.id ? "X" : "O"}, your turn in {turnTimeLeft} seconds</>
                   ) : (
-                    <>😱 It's Your turn, Hurry up!</>
+                    <>😱 {gameState.players[0] === socket.id ? "X" : "O"}, Your turn, Hurry up!</>
                   )
                 ) : (
                   <>👺 Enemy's turn</>
