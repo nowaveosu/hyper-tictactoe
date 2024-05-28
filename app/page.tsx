@@ -157,9 +157,9 @@ export default function Home() {
             <div className='w-full text-center text-lg mb-4'>
             {gameState.players[gameState.turn % 2] === socket.id ? ( 
                   turnTimeLeft > 0 ? ( 
-                    <>🤡 {gameState.players[0] === socket.id ? "X" : "O"}, your turn in {turnTimeLeft} seconds</>
+                    <>🤡 {gameState.players[0] === socket.id ? "X" : "O"}, Your turn in {turnTimeLeft} seconds</>
                   ) : (
-                    <>😱 {gameState.players[0] === socket.id ? "X" : "O"}, Your turn, Hurry up!</>
+                    <>😱 {gameState.players[0] === socket.id ? "X" : "O"}, It's Your turn, Hurry up!</>
                   )
                 ) : (
                   <>👺 Enemy's turn</>
