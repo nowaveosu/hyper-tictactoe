@@ -220,28 +220,31 @@ export default function Home() {
             </div>
           </div>
       )}
-
-      <div className="flex flex-col justify-center">
-          <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 max-w-[890px] max-h-[180px] overflow-y-auto w-full md:w-auto">
+      
+      <div className='flex justify-center'>
+        <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 w-[800px] max-h-[180px] overflow-y-auto justify-center"> 
             {inbox.map((message: string, index: number) => (
-              <div key={index} className="border rounded px-4 py-2 mb-2 bg-zinc-900">{message}</div>
+                <div key={index} className="border rounded px-4 py-2 mb-2 bg-zinc-900">{message}</div>
             ))}
-          </div>
-
-          <div className="flex gap-2 align-center justify-center max-w-[890px] w-full md:w-auto">
-            <input 
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value)
-            }} onKeyPress={(e) => { 
-              if (e.key === 'Enter') {
-                handleSendMessage();
-              }
-            }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1"/>
-            <button className="w-40" onClick={handleSendMessage}>Send Chat</button>
         </div>
       </div>
-    
+
+      
+      <div className='flex justify-center'>
+        <div className="flex gap-2 align-center justify-center w-[800px]">
+          <input 
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value)
+          }} onKeyPress={(e) => { 
+            if (e.key === 'Enter') {
+              handleSendMessage();
+            }
+          }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1"/>
+          <button className="ml-1" onClick={handleSendMessage}>Send Chat</button>
+        </div>
+      </div>
+
     
       
       <Link href="https://github.com/nowaveosu" target="_blank">
