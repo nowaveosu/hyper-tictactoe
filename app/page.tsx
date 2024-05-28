@@ -17,7 +17,7 @@ import home_icon from "../public/home.png"
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
-  const [inbox, setInbox] = useState<string[]>(["Rule : dark piece will disappear, Go Room and Fill 4-in-row first!", "You can chat here!"])
+  const [inbox, setInbox] = useState<string[]>(["룰 : 가장 오래된 말은 사라집니다, Room에 들어가 먼저 4줄을 채우세요!", "여기서 채팅 가능!"])
   const [message, setMessage] = useState("")
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
@@ -80,7 +80,7 @@ export default function Home() {
     return (
       <div
         key={cellIndex}
-        className={`border text-4xl px-4 py-2 w-16 h-16 flex items-center justify-center ${
+        className={`border text-4xl px-4 py-2 w-10 h-10 flex items-center justify-center ${
           isOldestX ? "text-orange-800 animate-custom-pulse" : isOldestO ? "text-blue-800 animate-custom-pulse" : 
             cell === "X" ? "text-orange-400" : cell === "O" ? "text-blue-400" : ""
         }`}
@@ -184,13 +184,13 @@ export default function Home() {
               <div className='flex justify-center w-full text-xl mb-6'> Rock paper scissors to decide the first! </div>
               <div className="flex gap-2 align-center justify-center"> 
                 <button onClick={() => handlePlayRPS("rock")}>
-                  <Image src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
+                  <Image className='w-40' src={rpsChoice === "rock" ? rock_checked : rock} alt="rock" />
                 </button>
                 <button onClick={() => handlePlayRPS("paper")}>
-                  <Image src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
+                  <Image className='w-40' src={rpsChoice === "paper" ? paper_checked : paper} alt="paper" />
                 </button>
                 <button onClick={() => handlePlayRPS("scissors")}>
-                  <Image src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
+                  <Image className='w-40' src={rpsChoice === "scissors" ? scissors_checked : scissors} alt="scissors" />
                 </button>
               </div>
             </div>
