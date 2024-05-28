@@ -137,7 +137,7 @@ export default function Home() {
 
   useEffect(() => {
     if (gameState && gameState.players[gameState.turn % 2] === socket.id) {
-      setTurnTimeLeft(4); 
+      setTurnTimeLeft(8); 
       const timerInterval = setInterval(() => {
         setTurnTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0)); 
       }, 1000);
