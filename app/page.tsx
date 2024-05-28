@@ -221,13 +221,15 @@ export default function Home() {
           </div>
       )}
 
-      <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 max-w-[890px] max-h-[180px] overflow-y-auto"> 
-          {inbox.map((message: string, index: number) => (
+      <div className="flex justify-center">
+          <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 max-w-[890px] max-h-[180px] overflow-y-auto">
+            {inbox.map((message: string, index: number) => (
               <div key={index} className="border rounded px-4 py-2 mb-2 bg-zinc-900">{message}</div>
-          ))}
+            ))}
+          </div>
       </div>
       
-      <div className="flex gap-2 align-center justify-center">
+      <div className="flex gap-2 align-center justify-center max-w-[890px]">
         <input 
         value={message}
         onChange={(e) => {
