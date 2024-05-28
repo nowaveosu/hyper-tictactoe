@@ -25,7 +25,7 @@ export default function Home() {
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
   const messageListRef = useRef<HTMLDivElement>(null);
-  const [turnTimeLeft, setTurnTimeLeft] = useState<number>(4);
+  const [turnTimeLeft, setTurnTimeLeft] = useState<number>(8);
   const [roomCounts, setRoomCounts] = useState({
     room1: 0,
     room2: 0,
@@ -71,8 +71,8 @@ export default function Home() {
     const currentPlayer = gameState.players[gameState.turn % 2];
     const isCurrentPlayer = currentPlayer === socket.id;
 
-    const oldestXIndex = gameState.playerSymbolQueues["X"].length >= 4 ? gameState.playerSymbolQueues["X"][0] : null;
-    const oldestOIndex = gameState.playerSymbolQueues["O"].length >= 4 ? gameState.playerSymbolQueues["O"][0] : null;
+    const oldestXIndex = gameState.playerSymbolQueues["X"].length >= 3 ? gameState.playerSymbolQueues["X"][0] : null;
+    const oldestOIndex = gameState.playerSymbolQueues["O"].length >= 3 ? gameState.playerSymbolQueues["O"][0] : null;
 
     const isOldestX = oldestXIndex === cellIndex && cell === "X"; 
     const isOldestO = oldestOIndex === cellIndex && cell === "O"; 
@@ -165,8 +165,8 @@ export default function Home() {
                   <>👺 Enemy's turn</>
                 )}
             </div>
-              <div className="grid grid-cols-4 gap-0">
-                  {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
+              <div className="grid grid-cols-3 gap-0">
+              {gameState.board.slice(0, 9).map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
               </div>
               <div className="grid grid-cols-4 gap-0">
               </div>
