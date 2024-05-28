@@ -165,11 +165,10 @@ export default function Home() {
                   <>👺 Enemy's turn</>
                 )}
             </div>
-              <div className="grid grid-cols-4 gap-0">
-                  {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
+              <div className="grid grid-cols-5 gap-0">
+                  {gameState.board.slice(0, 25).map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))} 
               </div>
-              <div className="grid grid-cols-4 gap-0">
-              </div>
+
               {showRematchButton && (  
                   <div className="flex justify-center">
                       <button className="w-40 mt-4" onClick={handleRematch}>Rematch</button>
