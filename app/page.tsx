@@ -25,7 +25,7 @@ export default function Home() {
   const [joined, setJoined] = useState(false); 
   const [showRematchButton, setShowRematchButton] = useState(false);
   const messageListRef = useRef<HTMLDivElement>(null);
-  const [turnTimeLeft, setTurnTimeLeft] = useState<number>(8);
+  const [turnTimeLeft, setTurnTimeLeft] = useState<number>(4);
   const [roomCounts, setRoomCounts] = useState({
     room1: 0,
     room2: 0,
@@ -71,8 +71,8 @@ export default function Home() {
     const currentPlayer = gameState.players[gameState.turn % 2];
     const isCurrentPlayer = currentPlayer === socket.id;
 
-    const oldestXIndex = gameState.playerSymbolQueues["X"].length >= 3 ? gameState.playerSymbolQueues["X"][0] : null;
-    const oldestOIndex = gameState.playerSymbolQueues["O"].length >= 3 ? gameState.playerSymbolQueues["O"][0] : null;
+    const oldestXIndex = gameState.playerSymbolQueues["X"].length >= 4 ? gameState.playerSymbolQueues["X"][0] : null;
+    const oldestOIndex = gameState.playerSymbolQueues["O"].length >= 4 ? gameState.playerSymbolQueues["O"][0] : null;
 
     const isOldestX = oldestXIndex === cellIndex && cell === "X"; 
     const isOldestO = oldestOIndex === cellIndex && cell === "O"; 
@@ -137,7 +137,7 @@ export default function Home() {
 
   useEffect(() => {
     if (gameState && gameState.players[gameState.turn % 2] === socket.id) {
-      setTurnTimeLeft(8); 
+      setTurnTimeLeft(4); 
       const timerInterval = setInterval(() => {
         setTurnTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0)); 
       }, 1000);
@@ -165,8 +165,8 @@ export default function Home() {
                   <>👺 Enemy's turn</>
                 )}
             </div>
-              <div className="grid grid-cols-3 gap-0">
-              {gameState.board.slice(0, 9).map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
+              <div className="grid grid-cols-4 gap-0">
+                  {gameState.board.map((cell: string, cellIndex: number) => renderCell(cell, cellIndex))}  
               </div>
               <div className="grid grid-cols-4 gap-0">
               </div>
@@ -220,6 +220,7 @@ export default function Home() {
             </div>
           </div>
       )}
+
       
       <div className='flex justify-center'>
         <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 w-[800px] max-h-[180px] overflow-y-auto justify-center"> 
@@ -244,7 +245,6 @@ export default function Home() {
           <button className="ml-1" onClick={handleSendMessage}>Send Chat</button>
         </div>
       </div>
-
     
       
       <Link href="https://github.com/nowaveosu" target="_blank">
