@@ -65,8 +65,8 @@ export default function Home() {
   };
 
   const renderMessage = (message: string, index: number) => {
-    const isXMessage = gameState && gameState.players[0];
-    const isOMessage = gameState && gameState.players[1];
+    const isXMessage = gameState && gameState.players[0] === socket.id;
+    const isOMessage = gameState && gameState.players[1] === socket.id;
 
     return (
       <div
@@ -75,8 +75,9 @@ export default function Home() {
           isXMessage ? "bg-yellow-700" : isOMessage ? "bg-blue-800" : "bg-zinc-900" 
         }`}
       >
-        {message}
+        {message}{socket.id}
       </div>
+      
     );
   };
 
