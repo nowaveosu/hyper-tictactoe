@@ -65,8 +65,8 @@ export default function Home() {
   };
 
   const renderMessage = (message: string, index: number) => {
-    const isXMessage = gameState && gameState.players[0] === socket.id;
-    const isOMessage = gameState && gameState.players[1] === socket.id;
+    const isXMessage = gameState && gameState.players[0] === socket.id && message.startsWith('🤡');
+    const isOMessage = gameState && gameState.players[1] === socket.id && message.startsWith('👺');
 
     return (
       <div
