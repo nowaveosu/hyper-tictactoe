@@ -64,7 +64,21 @@ export default function Home() {
     setRpsChoice("");  
   };
 
-  
+  const renderMessage = (message: string, index: number) => {
+    const isXMessage = gameState && gameState.players[0];
+    const isOMessage = gameState && gameState.players[1];
+
+    return (
+      <div
+        key={index}
+        className={`border rounded px-4 py-2 mb-2 ${
+          isXMessage ? "bg-yellow-700" : isOMessage ? "bg-blue-800" : "bg-zinc-900" 
+        }`}
+      >
+        {message}
+      </div>
+    );
+  };
 
   
   const renderCell = (cell: string, cellIndex: number) => {
@@ -157,7 +171,7 @@ export default function Home() {
             <div className='w-full text-center text-lg mb-4'>
             {gameState.players[gameState.turn % 2] === socket.id ? ( 
                   turnTimeLeft > 0 ? ( 
-                    <>🤡 {gameState.players[0] === socket.id ? "X" : "O"}, Your turn in {turnTimeLeft} seconds</>
+                    <>🤡 {gameState.players[0] === socket.id ? "X" : "O"}, your turn in {turnTimeLeft} seconds</>
                   ) : (
                     <>😱 {gameState.players[0] === socket.id ? "X" : "O"}, It's Your turn! Hurry up!</>
                   )
@@ -225,9 +239,7 @@ export default function Home() {
           <>
             <div className='flex justify-center'>
               <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 w-[800px] max-h-[180px] overflow-y-auto justify-center"> 
-                  {inbox.map((message: string, index: number) => (
-                      <div key={index} className="border rounded px-4 py-2 mb-2 bg-zinc-900">{message}</div>
-                  ))}
+                {inbox.map((message: string, index: number) => renderMessage(message, index))}
               </div>
             </div>
 
