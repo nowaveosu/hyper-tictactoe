@@ -65,19 +65,17 @@ export default function Home() {
   };
 
   const renderMessage = (message: string, index: number) => {
-    const isXMessage = gameState && gameState.players[0] === socket.id && message.startsWith('🤡');
-    const isOMessage = gameState && gameState.players[1] === socket.id && message.startsWith('👺');
-
+    const isOpponentMessage = gameState && gameState.players.includes(socket.id) && gameState.players[gameState.turn % 2] !== socket.id; 
+  
     return (
       <div
         key={index}
         className={`border rounded px-4 py-2 mb-2 ${
-          isXMessage ? "bg-yellow-700" : isOMessage ? "bg-blue-800" : "bg-zinc-900" 
+          isOpponentMessage ? "bg-zinc-600" : "bg-zinc-800" // 배경색 조건부 설정
         }`}
       >
-        {message}{socket.id}
+        {message}
       </div>
-      
     );
   };
 
