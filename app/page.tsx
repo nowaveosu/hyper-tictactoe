@@ -64,21 +64,6 @@ export default function Home() {
     setRpsChoice("");  
   };
 
-  const renderMessage = (message: string, index: number) => {
-    const isPlayer0Message = gameState && gameState.players[0] === socket.id 
-  
-    return (
-      <div
-        key={index}
-        className={`border rounded px-4 py-2 mb-2 ${
-          isPlayer0Message ? "bg-zinc-900" : "bg-zinc-700" 
-        }`}
-      >
-        {message}
-      </div>
-    );
-  };
-
   
   const renderCell = (cell: string, cellIndex: number) => {
     const currentPlayer = gameState.players[gameState.turn % 2];
@@ -238,7 +223,9 @@ export default function Home() {
           <>
             <div className='flex justify-center'>
               <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 w-[800px] max-h-[180px] overflow-y-auto justify-center"> 
-                {inbox.map((message: string, index: number) => renderMessage(message, index))}
+                  {inbox.map((message: string, index: number) => (
+                      <div key={index} className="border rounded px-4 py-2 mb-2 bg-zinc-900">{message}</div>
+                  ))}
               </div>
             </div>
 
