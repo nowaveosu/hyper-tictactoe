@@ -65,13 +65,13 @@ export default function Home() {
   };
 
   const renderMessage = (message: string, index: number) => {
-    const isOpponentMessage = gameState && gameState.players.includes(socket.id) && gameState.players[gameState.turn % 2] !== socket.id; 
+    const isPlayer0Message = gameState && gameState.players[0] === socket.id 
   
     return (
       <div
         key={index}
         className={`border rounded px-4 py-2 mb-2 ${
-          isOpponentMessage ? "bg-zinc-600" : "bg-zinc-800" // 배경색 조건부 설정
+          isPlayer0Message ? "bg-zinc-900" : "bg-zinc-700" 
         }`}
       >
         {message}
