@@ -246,9 +246,10 @@ export default function Home() {
           </>
         ) : (
           <div className='flex justify-center'>
-          <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 mt-6 w-[800px] max-h-[180px] overflow-y-auto justify-center"> 
+          <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 mt-6 w-[800px] max-h-[270px] overflow-y-auto justify-center"> 
               <div className="border rounded px-4 py-2 mb-2 bg-zinc-900">{["hyper-tictactoe에 오신걸 환영합니다!"]}</div>
               <div className="border rounded px-4 py-2 mb-2 bg-zinc-900">{["룰 : 5턴이후 가장 오래된 말은 사라집니다, Room에 들어가 상대보다 먼저 4줄을 채우세요!"]}</div>
+              <div className="border rounded px-4 py-2 mb-2 bg-zinc-900">{["게임 상대가 필요하다면 문자주세요! 010-7351-3804"]}</div>
               
           </div>
         </div>
