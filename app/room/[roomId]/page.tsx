@@ -90,9 +90,8 @@ export default function RoomPage() {
      useEffect(() =>{
         const socket = io('https://port-0-hypertictactoe-server-1272llwkmw9kv.sel5.cloudtype.app/')
         setSocket(socket);
-        socket.emit("joinRoom", roomId, () => {
-            setJoined(true);
-        });
+        socket.emit("joinRoom", roomId);
+        setJoined(true);
     },[])
 
 
