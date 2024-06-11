@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 
+
 import rock from "../../../public/rock.png";
 import paper from "../../../public/paper.png";
 import scissors from "../../../public/scissors.png";
@@ -22,6 +23,7 @@ export default function RoomPage() {
     const params = useParams();
     const roomId = params.roomId as string;
 
+    const [joined, setJoined] = useState(false);
     const [socket, setSocket] = useState<any>(undefined)
     const [inbox, setInbox] = useState<string[]>(["룰 : 5턴이후 가장 오래된 말은 사라집니다, Room에 들어가 먼저 4줄을 채우세요!", "여기서 채팅 가능!"])
     const [message, setMessage] = useState("")
@@ -55,6 +57,7 @@ export default function RoomPage() {
         setRoomName(newRoomName);
         socket.emit("joinRoom", newRoomName);
         router.push(`/room/${newRoomName}`); 
+        setJoined(true);
         setShowRematchButton(false);
         setRpsChoice("");  
     };
@@ -87,7 +90,9 @@ export default function RoomPage() {
      useEffect(() =>{
         const socket = io('https://port-0-hypertictactoe-server-1272llwkmw9kv.sel5.cloudtype.app/')
         setSocket(socket);
-        socket.emit("joinRoom", roomId);
+        socket.emit("joinRoom", roomId, () => {
+            setJoined(true);
+        });
     },[])
 
 
@@ -139,7 +144,8 @@ export default function RoomPage() {
     return (
         <div>
             <div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
-                {gameState && gameState.rpsResult ? ( 
+            {joined ? ( 
+                gameState && gameState.rpsResult ? ( 
                     <div className='flex flex-wrap justify-center'>
                     <Image src={home_icon} alt="home icon" className='absolute top-4 left-5 w-6 ml-1' onClick={() => window.location.reload()}/>
                     <div className='w-full text-center text-lg mb-4'>
@@ -190,9 +196,11 @@ export default function RoomPage() {
                         </div>
                     </div>
                 )
-                )}
+                )
+            ) : null}
 
-            <>
+            {joined ? (
+                <>
                     <div className='flex justify-center'>
                     <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 w-[800px] max-h-[180px] overflow-y-auto justify-center"> 
                         {inbox.map((message: string, index: number) => (
@@ -216,7 +224,7 @@ export default function RoomPage() {
                 </div>
                 </div>
             </>
-
+        ) : null}
 
         <Link href="https://github.com/nowaveosu" target="_blank">
         <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'> created by nowaveosu <Image src={github_icon} alt="github icon" className='w-6 ml-1' /></div>
