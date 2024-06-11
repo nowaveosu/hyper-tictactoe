@@ -23,7 +23,7 @@ export default function RoomPage() {
     const params = useParams();
     const roomId = params.roomId as string;
 
-    const [joined, setJoined] = useState(false);
+    const [joined, setJoined] = useState(true);
     const [socket, setSocket] = useState<any>(undefined)
     const [inbox, setInbox] = useState<string[]>(["룰 : 5턴이후 가장 오래된 말은 사라집니다, Room에 들어가 먼저 4줄을 채우세요!", "여기서 채팅 가능!"])
     const [message, setMessage] = useState("")
