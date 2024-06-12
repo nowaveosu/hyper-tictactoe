@@ -17,7 +17,7 @@ import home_icon from "../public/home.png"
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
-  const [inbox, setInbox] = useState<string[]>(["룰 : 가장 오래된 말은 사라집니다, Room에 들어가 먼저 4줄을 채우세요!", "여기서 채팅 가능!"])
+  const [inbox, setInbox] = useState<string[]>(["룰 : 판에는 최대 4개의 말만 존재하며 가장 오래된 말은 사라집니다. 상대보다 먼저 4줄을 채우세요!", "여기서 채팅 가능!"])
   const [message, setMessage] = useState("")
   const [roomName, setRoomName] = useState("")
   const [gameState, setGameState] = useState<any>(undefined);
@@ -248,8 +248,7 @@ export default function Home() {
           <div className='flex justify-center'>
           <div ref={messageListRef} className="flex flex-col gap-2 border rounded-lg p-10 mt-6 w-[800px] max-h-[180px] overflow-y-auto justify-center"> 
               <div className="border rounded px-4 py-2 mb-2 bg-zinc-900">{["hyper-tictactoe에 오신걸 환영합니다!"]}</div>
-              <div className="border rounded px-4 py-2 mb-2 bg-zinc-900">{["룰 : 가장 오래된 말은 사라집니다, Room에 들어가 상대보다 먼저 4줄을 채우세요!"]}</div>
-              
+              <div className="border rounded px-4 py-2 mb-2 bg-zinc-900">{["룰 : 판에는 최대 4개의 말만 존재하며 가장 오래된 말은 사라집니다. Room에 들어가 상대보다 먼저 4줄을 채우세요!"]}</div>
           </div>
         </div>
   
