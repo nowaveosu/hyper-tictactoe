@@ -8,14 +8,14 @@ import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 
 
-import rock from "../../../public/rock.png";
-import paper from "../../../public/paper.png";
-import scissors from "../../../public/scissors.png";
-import rock_checked from "../../../public/rock_checked.png";
-import paper_checked from "../../../public/paper_checked.png";
-import scissors_checked from "../../../public/scissors_checked.png";
-import github_icon from "../../../public/github_icon.png"
-import home_icon from "../../../public/home.png"
+import rock from "../../../public/image/rock.png";
+import paper from "../../../public/image/paper.png";
+import scissors from "../../../public/image/scissors.png";
+import rock_checked from "../../../public/image/rock_checked.png";
+import paper_checked from "../../../public/image/paper_checked.png";
+import scissors_checked from "../../../public/image/scissors_checked.png";
+import github_icon from "../../../public/image/github_icon.png"
+import home_icon from "../../../public/image/home.png"
 
 
 export default function RoomPage() {
