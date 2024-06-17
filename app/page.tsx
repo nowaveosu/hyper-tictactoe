@@ -239,7 +239,7 @@ export default function Home() {
                   if (e.key === 'Enter') {
                     handleSendMessage();
                   }
-                }} type="text" name="message" placeholder="" className="flex-1 bg-black border rounded px-2 py-1"/>
+                }} type="text" name="message" placeholder="Type here" className="flex-1 bg-black border rounded px-2 py-1"/>
                 <button className="ml-1" onClick={handleSendMessage}>Send Chat</button>
               </div>
             </div>
