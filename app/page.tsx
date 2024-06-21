@@ -203,7 +203,7 @@ export default function Home() {
         )
       ) : (
         <div className="flex flex-col items-center">
-            <Image className="lg:max-w-4xl md:max-w-xl sm:max-w-md" src={logo} alt="logo" onClick={() => window.location.reload()} />
+            <Image className="lg:max-w-4xl md:max-w-xl sm:max-w-md cursor-pointer" src={logo} alt="logo" onClick={() => window.location.reload()} />
             <div className="mt-4 mb-4 flex gap-4">
               <button className="w-24" onClick={() => handleJoinRoom("room1")}>
                 Room 1 <span className="text-xs">({roomCounts.room1 ? roomCounts.room1 : 0}/2)</span> 
