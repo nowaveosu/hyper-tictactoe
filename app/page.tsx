@@ -5,15 +5,15 @@ import { io } from "socket.io-client";
 import Image from 'next/image';
 import Link from 'next/link';
 
-import logo from "../public/logo.png";
-import rock from "../public/rock.png";
-import paper from "../public/paper.png";
-import scissors from "../public/scissors.png";
-import rock_checked from "../public/rock_checked.png";
-import paper_checked from "../public/paper_checked.png";
-import scissors_checked from "../public/scissors_checked.png";
-import github_icon from "../public/github_icon.png"
-import home_icon from "../public/home.png"
+import logo from "../public/image/logo.png";
+import rock from "../public/image/rock.png";
+import paper from "../public/image/paper.png";
+import scissors from "../public/image/scissors.png";
+import rock_checked from "../public/image/rock_checked.png";
+import paper_checked from "../public/image/paper_checked.png";
+import scissors_checked from "../public/image/scissors_checked.png";
+import github_icon from "../public/image/github_icon.png"
+import home_icon from "../public/image/home.png"
 
 export default function Home() {
   const [socket, setSocket] = useState<any>(undefined)
