@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { io } from "socket.io-client";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import logo from "../../public/image/logo.png";
+import logo from "../public/image/logo.png";
 import Link from 'next/link';
+import github_icon from "../public/image/github_icon.png"
 
 export default function Home() {
   const [roomCounts, setRoomCounts] = useState({
@@ -52,7 +53,7 @@ export default function Home() {
       </div>
       <Link href="https://github.com/nowaveosu" target="_blank">
         <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'>
-          created by nowaveosu <Image src="../../public/image/github_icon.png" alt="github icon" className='w-6 ml-1' />
+          created by nowaveosu <Image src={github_icon} alt="github icon" className='w-6 ml-1' />
         </div>
       </Link>
     </div>

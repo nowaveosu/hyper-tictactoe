@@ -14,7 +14,7 @@ export default function Result({ params }: { params: { roomName: string } }) {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <Image src={home_icon} alt="home icon" className='absolute top-4 left-5 w-6 ml-1 cursor-pointer' onClick={() => router.push("/lobby")} />
+      <Image src={home_icon} alt="home icon" className='absolute top-4 left-5 w-6 ml-1 cursor-pointer' onClick={() => router.push("/")} />
       <div className="text-center">
         <h1 className="text-4xl mb-8">Game Over</h1>
         <p className="text-xl mb-4">You have finished the game in room {roomName}.</p>

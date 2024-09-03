@@ -103,7 +103,7 @@ export default function Game({ params }: { params: { roomName: string } }) {
 
   return (
     <div className="flex flex-col gap-5 mt-20 px-10 lg:px-48">
-      <Image src={home_icon} alt="home icon" className='absolute top-4 left-5 w-6 ml-1 cursor-pointer' onClick={() => router.push("/lobby")} />
+      <Image src={home_icon} alt="home icon" className='absolute top-4 left-5 w-6 ml-1 cursor-pointer' onClick={() => router.push("/")} />
       {gameState ? (
         gameState.rpsResult ? (
           <div className="flex flex-wrap justify-center">
