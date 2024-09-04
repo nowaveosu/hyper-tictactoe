@@ -8,6 +8,7 @@ import Link from 'next/link';
 import github_icon from "../public/image/github_icon.png"
 
 export default function Home() {
+  
   const [roomCounts, setRoomCounts] = useState({
     room1: 0,
     room2: 0,
@@ -51,6 +52,13 @@ export default function Home() {
           Room 3 <span className="text-xs">({roomCounts.room3}/2)</span>
         </button>
       </div>
+      <div className='flex justify-center'>
+          <div className="flex flex-col gap-2 border rounded-lg p-10 mt-6  max-h-[180px] overflow-y-auto justify-center"> 
+              <div className="border rounded px-4 py-2 mb-2 bg-zinc-900">{["hyper-tictactoe에 오신걸 환영합니다!"]}</div>
+              <div className="border rounded px-4 py-2 mb-2 bg-zinc-900">{["룰 : 판에는 최대 4개의 말만 존재하며 가장 오래된 말은 사라집니다. Room에 들어가 상대보다 먼저 4줄을 채우세요!"]}</div>
+          </div>
+      </div>
+
       <Link href="https://github.com/nowaveosu" target="_blank">
         <div className='flex justify-center absolute top-4 right-5 text-stone-200 text-sm'>
           created by nowaveosu <Image src={github_icon} alt="github icon" className='w-6 ml-1' />
