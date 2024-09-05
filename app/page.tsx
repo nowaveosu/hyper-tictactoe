@@ -43,13 +43,13 @@ export default function Home() {
       <Image className="mt-40 lg:max-w-4xl md:max-w-xl sm:max-w-md cursor-pointer" src={logo} alt="logo" onClick={() => window.location.reload()} />
       <div className="mt-4 mb-4 flex gap-4">
         <button className="w-24" onClick={() => handleJoinRoom("1")}>
-          Room 1 <span className="text-xs">({roomCounts.room1}/2)</span>
+          Room 1 <span className="text-xs">({typeof roomCounts.room1 === 'number' ? roomCounts.room1 : 0}/2)</span>
         </button>
         <button className="w-24" onClick={() => handleJoinRoom("2")}>
-          Room 2 <span className="text-xs">({roomCounts.room2}/2)</span>
+          Room 2 <span className="text-xs">({typeof roomCounts.room1 === 'number' ? roomCounts.room2 : 0}/2)</span>
         </button>
         <button className="w-24" onClick={() => handleJoinRoom("3")}>
-          Room 3 <span className="text-xs">({roomCounts.room3}/2)</span>
+          Room 3 <span className="text-xs">({typeof roomCounts.room1 === 'number' ? roomCounts.room3 : 0}/2)</span>
         </button>
       </div>
       <div className='flex justify-center'>
