@@ -108,14 +108,18 @@ export default function Game({ params }: { params: { roomName: string } }) {
         gameState.rpsResult ? (
           <div className="flex flex-wrap justify-center">
             <div className='w-full text-center text-lg mb-4'>
-              {gameState.players[gameState.turn % 2] === socket.id ? ( 
-                  turnTimeLeft > 0 ? ( 
-                    <>🤡 {gameState.players[0] === socket.id ? "X" : "O"}, your turn in {turnTimeLeft} seconds</>
+              {!showRematchButton && (
+                <>
+                  {gameState.players[gameState.turn % 2] === socket.id ? (
+                    turnTimeLeft > 0 ? (
+                      <>🤡 {gameState.players[0] === socket.id ? "X" : "O"}, your turn in {turnTimeLeft} seconds</>
+                    ) : (
+                      <>😱 {gameState.players[0] === socket.id ? "X" : "O"}, It's Your turn! Hurry up!</>
+                    )
                   ) : (
-                    <>😱 {gameState.players[0] === socket.id ? "X" : "O"}, It's Your turn! Hurry up!</>
-                  )
-                ) : (
-                  <>👺 Enemy's turn</>
+                    <>👺 Enemy's turn</>
+                  )}
+                </>
               )}
             </div>
             <div className="grid grid-cols-5 gap-0">
